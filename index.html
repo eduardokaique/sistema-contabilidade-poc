@@ -33,6 +33,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1000;
         }
 
         .header h1 {
@@ -43,19 +45,30 @@
 
         .nav {
             display: flex;
-            gap: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-dropdown {
+            position: relative;
+            z-index: 1001;
         }
 
         .nav-btn {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 25px;
             cursor: pointer;
             font-weight: 500;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-btn:hover {
@@ -67,6 +80,117 @@
             background: linear-gradient(45deg, #2c3e50, #34495e);
         }
 
+        .nav-btn.dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-dropdown:hover .nav-btn.dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 10000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 10px;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            margin: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: calc(100% - 10px);
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: white;
+        }
+
+        .module-icon {
+            font-size: 1rem;
+            margin-right: 8px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .esocial-tab {
+            display: none;
+        }
+
+        .esocial-tab.active {
+            display: block;
+        }
+
+        .evento-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .evento-form h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
         .main-content {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -74,6 +198,8 @@
             padding: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             min-height: 600px;
+            position: relative;
+            z-index: 1;
         }
 
         .section {
@@ -239,11 +365,62 @@
             
             .nav {
                 flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
             }
             
             .header {
                 flex-direction: column;
                 gap: 15px;
+            }
+
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+
+            .module-icon {
+                font-size: 0.9rem;
+                margin-right: 6px;
+            }
+
+            .dropdown-menu {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                min-width: 280px;
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+
+            .nav-dropdown:hover .dropdown-menu {
+                transform: translate(-50%, -50%);
+            }
+
+            .dropdown-item {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+            }
+
+            .dropdown-menu {
+                min-width: 95vw;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -253,10 +430,82 @@
         <header class="header">
             <h1>📊 Sistema de Contabilidade</h1>
             <nav class="nav">
-                <button class="nav-btn active" onclick="showSection('dashboard')">Dashboard</button>
-                <button class="nav-btn" onclick="showSection('lancamentos')">Lançamentos</button>
-                <button class="nav-btn" onclick="showSection('relatorios')">Relatórios</button>
-                <button class="nav-btn" onclick="showSection('contas')">Contas</button>
+                <!-- Dashboard Principal -->
+                <button class="nav-btn active" onclick="showSection('dashboard')">
+                    <span class="module-icon">📊</span> Dashboard
+                </button>
+
+                <!-- Módulo Contábil -->
+                <div class="nav-dropdown">
+                    <button class="nav-btn dropdown-toggle">
+                        <span class="module-icon">📚</span> Contábil
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="showSection('lancamentos')">
+                            <span class="module-icon">💰</span> Lançamentos
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('contas')">
+                            <span class="module-icon">🏦</span> Plano de Contas
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('diario')">
+                            <span class="module-icon">📖</span> Livro Diário
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('razao')">
+                            <span class="module-icon">📋</span> Livro Razão
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('contasreceber')">
+                            <span class="module-icon">💸</span> Contas a Pagar/Receber
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Módulo Relatórios -->
+                <div class="nav-dropdown">
+                    <button class="nav-btn dropdown-toggle">
+                        <span class="module-icon">📊</span> Relatórios
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="showSection('relatorios')">
+                            <span class="module-icon">📈</span> DRE
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('balanco')">
+                            <span class="module-icon">⚖️</span> Balanço Patrimonial
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Módulo Fiscal -->
+                <div class="nav-dropdown">
+                    <button class="nav-btn dropdown-toggle">
+                        <span class="module-icon">🏛️</span> Fiscal
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="showSection('fiscal')">
+                            <span class="module-icon">📄</span> Apuração de Impostos
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('sped')">
+                            <span class="module-icon">📊</span> SPED Fiscal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Módulo Folha -->
+                <div class="nav-dropdown">
+                    <button class="nav-btn dropdown-toggle">
+                        <span class="module-icon">👥</span> RH & Folha
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="showSection('folha')">
+                            <span class="module-icon">💰</span> Folha de Pagamento
+                        </button>
+                        <button class="dropdown-item" onclick="showFuncionariosSection()">
+                            <span class="module-icon">👤</span> Funcionários
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('esocial')">
+                            <span class="module-icon">🔗</span> e-Social
+                        </button>
+                    </div>
+                </div>
             </nav>
         </header>
 
@@ -402,89 +651,1797 @@
                     </table>
                 </div>
             </section>
+
+            <!-- Livro Diário Section -->
+            <section id="diario" class="section">
+                <h2>📖 Livro Diário</h2>
+                
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label for="diario-inicio">Período - Início:</label>
+                        <input type="date" id="diario-inicio">
+                    </div>
+                    <div class="form-group">
+                        <label for="diario-fim">Período - Fim:</label>
+                        <input type="date" id="diario-fim">
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="filtrarDiario()">Filtrar Período</button>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Histórico</th>
+                                <th>Conta</th>
+                                <th>Débito</th>
+                                <th>Crédito</th>
+                            </tr>
+                        </thead>
+                        <tbody id="diario-tbody">
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Livro Razão Section -->
+            <section id="razao" class="section">
+                <h2>📚 Livro Razão</h2>
+                
+                <div class="form-group" style="max-width: 300px; margin-bottom: 20px;">
+                    <label for="conta-filtro">Filtrar por Conta:</label>
+                    <select id="conta-filtro">
+                        <option value="">Todas as contas</option>
+                        <option value="caixa">Caixa</option>
+                        <option value="banco">Banco</option>
+                        <option value="vendas">Vendas</option>
+                        <option value="fornecedores">Fornecedores</option>
+                        <option value="despesas-operacionais">Despesas Operacionais</option>
+                    </select>
+                </div>
+                
+                <button class="btn" onclick="filtrarRazao()">Atualizar Razão</button>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Histórico</th>
+                                <th>Débito</th>
+                                <th>Crédito</th>
+                                <th>Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="razao-tbody">
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Balanço Patrimonial Section -->
+            <section id="balanco" class="section">
+                <h2>⚖️ Balanço Patrimonial</h2>
+                
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label for="balanco-data">Data de Referência:</label>
+                        <input type="date" id="balanco-data">
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="gerarBalanco()">Gerar Balanço</button>
+                
+                <div id="balanco-resultado" class="chart-container" style="display: none;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h3>ATIVO</h3>
+                            <div id="ativo-content"></div>
+                        </div>
+                        <div>
+                            <h3>PASSIVO + PATRIMÔNIO LÍQUIDO</h3>
+                            <div id="passivo-content"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div id="totais-balanco"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contas a Receber Section -->
+            <section id="contasreceber" class="section">
+                <h2>💰 Contas a Pagar/Receber</h2>
+                
+                <form id="conta-form" style="margin-bottom: 30px;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="conta-tipo">Tipo:</label>
+                            <select id="conta-tipo" required>
+                                <option value="">Selecione...</option>
+                                <option value="receber">Conta a Receber</option>
+                                <option value="pagar">Conta a Pagar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="conta-vencimento">Data de Vencimento:</label>
+                            <input type="date" id="conta-vencimento" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="conta-cliente">Cliente/Fornecedor:</label>
+                            <input type="text" id="conta-cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="conta-valor">Valor (R$):</label>
+                            <input type="number" id="conta-valor" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="conta-descricao">Descrição:</label>
+                        <textarea id="conta-descricao" rows="2" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Adicionar Conta</button>
+                </form>
+
+                <div class="dashboard-cards" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <h3>💰 Total a Receber</h3>
+                        <div class="value" id="total-receber">R$ 0,00</div>
+                    </div>
+                    <div class="card">
+                        <h3>💸 Total a Pagar</h3>
+                        <div class="value" id="total-pagar">R$ 0,00</div>
+                    </div>
+                    <div class="card">
+                        <h3>⚠️ Vencidas</h3>
+                        <div class="value" id="total-vencidas">0</div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Vencimento</th>
+                                <th>Cliente/Fornecedor</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contas-receber-tbody">
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Módulo Fiscal Section -->
+            <section id="fiscal" class="section">
+                <h2>🏛️ Módulo Fiscal</h2>
+                
+                <div class="dashboard-cards" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <h3>📄 ICMS a Recolher</h3>
+                        <div class="value" id="icms-recolher">R$ 0,00</div>
+                    </div>
+                    <div class="card">
+                        <h3>📄 PIS/COFINS</h3>
+                        <div class="value" id="pis-cofins">R$ 0,00</div>
+                    </div>
+                    <div class="card">
+                        <h3>📊 SPED Fiscal</h3>
+                        <div class="value" id="sped-status">Pendente</div>
+                    </div>
+                </div>
+
+                <!-- Apuração de Impostos -->
+                <h3>Apuração de Impostos</h3>
+                <form id="imposto-form" style="margin-bottom: 30px;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="imposto-tipo">Tipo de Imposto:</label>
+                            <select id="imposto-tipo" required>
+                                <option value="">Selecione...</option>
+                                <option value="icms">ICMS</option>
+                                <option value="ipi">IPI</option>
+                                <option value="pis">PIS</option>
+                                <option value="cofins">COFINS</option>
+                                <option value="irpj">IRPJ</option>
+                                <option value="csll">CSLL</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="imposto-periodo">Período:</label>
+                            <input type="month" id="imposto-periodo" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="imposto-base">Base de Cálculo (R$):</label>
+                            <input type="number" id="imposto-base" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imposto-aliquota">Alíquota (%):</label>
+                            <input type="number" id="imposto-aliquota" step="0.01" min="0" max="100" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Apurar Imposto</button>
+                </form>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Imposto</th>
+                                <th>Período</th>
+                                <th>Base de Cálculo</th>
+                                <th>Alíquota</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="impostos-tbody">
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- SPED Fiscal Section -->
+            <section id="sped" class="section">
+                <h2>📊 SPED Fiscal</h2>
+                
+                <div class="dashboard-cards" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <h3>📄 Status SPED</h3>
+                        <div class="value" id="sped-status-card">Pendente</div>
+                    </div>
+                    <div class="card">
+                        <h3>📅 Último Período</h3>
+                        <div class="value" id="ultimo-periodo">2024-08</div>
+                    </div>
+                    <div class="card">
+                        <h3>📊 Registros Gerados</h3>
+                        <div class="value" id="total-registros">0</div>
+                    </div>
+                </div>
+
+                <!-- Geração do SPED -->
+                <h3>Geração do SPED Fiscal</h3>
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label for="sped-periodo">Período de Apuração:</label>
+                        <input type="month" id="sped-periodo">
+                    </div>
+                    <div class="form-group">
+                        <label for="sped-cnpj">CNPJ da Empresa:</label>
+                        <input type="text" id="sped-cnpj" value="12.345.678/0001-99" readonly>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label for="sped-razao">Razão Social:</label>
+                        <input type="text" id="sped-razao" value="EMPRESA EXEMPLO LTDA" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="sped-ie">Inscrição Estadual:</label>
+                        <input type="text" id="sped-ie" value="123456789" readonly>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="gerarSpedFiscal()">🔄 Gerar SPED Fiscal</button>
+                <button class="btn" onclick="validarSpedFiscal()" style="margin-left: 10px;">✅ Validar SPED</button>
+                <button class="btn" onclick="exportarSpedFiscal()" style="margin-left: 10px;">💾 Exportar Arquivo</button>
+                
+                <div id="sped-resultado" class="chart-container" style="display: none; margin-top: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h4>📄 Arquivo SPED Fiscal Gerado</h4>
+                        <span id="sped-data-geracao" style="color: #666; font-size: 0.9rem;"></span>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div>
+                                <strong>Período:</strong>
+                                <span id="sped-periodo-exibido"></span>
+                            </div>
+                            <div>
+                                <strong>Total de Registros:</strong>
+                                <span id="sped-total-registros"></span>
+                            </div>
+                            <div>
+                                <strong>Status:</strong>
+                                <span id="sped-status-validacao" class="status pago">Válido</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="sped-content" style="max-height: 400px; overflow-y: auto;"></div>
+                </div>
+
+                <!-- Histórico de SPED -->
+                <div style="margin-top: 40px;">
+                    <h3>📋 Histórico de SPED Gerados</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Período</th>
+                                    <th>Data de Geração</th>
+                                    <th>Registros</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historico-sped-tbody">
+                                <!-- Dados serão inseridos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Folha de Pagamento Section -->
+            <section id="folha" class="section">
+                <h2>👥 Folha de Pagamento</h2>
+                
+                <div class="dashboard-cards" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <h3>👥 Total Funcionários</h3>
+                        <div class="value" id="total-funcionarios">0</div>
+                    </div>
+                    <div class="card">
+                        <h3>💰 Folha Bruta</h3>
+                        <div class="value" id="folha-bruta">R$ 0,00</div>
+                    </div>
+                    <div class="card">
+                        <h3>📊 Encargos</h3>
+                        <div class="value" id="total-encargos">R$ 0,00</div>
+                    </div>
+                    <div class="card">
+                        <h3>💸 Folha Líquida</h3>
+                        <div class="value" id="folha-liquida">R$ 0,00</div>
+                    </div>
+                </div>
+
+                <!-- Cadastro de Funcionário -->
+                <h3>Cadastro de Funcionários</h3>
+                <form id="funcionario-form" style="margin-bottom: 30px;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="func-nome">Nome Completo:</label>
+                            <input type="text" id="func-nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="func-cpf">CPF:</label>
+                            <input type="text" id="func-cpf" placeholder="000.000.000-00" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="func-cargo">Cargo:</label>
+                            <input type="text" id="func-cargo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="func-departamento">Departamento:</label>
+                            <select id="func-departamento" required>
+                                <option value="">Selecione...</option>
+                                <option value="administrativo">Administrativo</option>
+                                <option value="vendas">Vendas</option>
+                                <option value="producao">Produção</option>
+                                <option value="financeiro">Financeiro</option>
+                                <option value="rh">Recursos Humanos</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="func-salario">Salário Bruto (R$):</label>
+                            <input type="number" id="func-salario" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="func-admissao">Data de Admissão:</label>
+                            <input type="date" id="func-admissao" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Cadastrar Funcionário</button>
+                </form>
+
+                <!-- Lista de Funcionários -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Cargo</th>
+                                <th>Departamento</th>
+                                <th>Salário Bruto</th>
+                                <th>Sal. Líquido</th>
+                                <th>Admissão</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="funcionarios-tbody">
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Processamento da Folha -->
+                <div style="margin-top: 30px;">
+                    <h3>Processamento da Folha</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="folha-periodo">Período:</label>
+                            <input type="month" id="folha-periodo">
+                        </div>
+                    </div>
+                    <button class="btn" onclick="processarFolha()">Processar Folha de Pagamento</button>
+                    
+                    <div id="folha-resultado" class="chart-container" style="display: none; margin-top: 20px;">
+                        <h4>Resumo da Folha Processada</h4>
+                        <div id="folha-resumo"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- e-Social Section -->
+            <section id="esocial" class="section">
+                <h2>🔗 e-Social</h2>
+                
+                <div class="dashboard-cards" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <h3>📤 Eventos Enviados</h3>
+                        <div class="value" id="esocial-enviados">0</div>
+                    </div>
+                    <div class="card">
+                        <h3>⏳ Pendentes</h3>
+                        <div class="value" id="esocial-pendentes">0</div>
+                    </div>
+                    <div class="card">
+                        <h3>❌ Com Erro</h3>
+                        <div class="value" id="esocial-erros">0</div>
+                    </div>
+                    <div class="card">
+                        <h3>✅ Processados</h3>
+                        <div class="value" id="esocial-processados">0</div>
+                    </div>
+                </div>
+
+                <!-- Tabs de Eventos -->
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e0e6ed;">
+                    <button class="tab-btn active" onclick="showEsocialTab('eventos')">📋 Gestão de Eventos</button>
+                    <button class="tab-btn" onclick="showEsocialTab('trabalhadores')">👤 Trabalhadores</button>
+                    <button class="tab-btn" onclick="showEsocialTab('remuneracao')">💰 Remuneração</button>
+                    <button class="tab-btn" onclick="showEsocialTab('transmissao')">📡 Transmissão</button>
+                </div>
+
+                <!-- Tab: Gestão de Eventos -->
+                <div id="esocial-eventos" class="esocial-tab active">
+                    <h3>📋 Eventos e-Social</h3>
+                    
+                    <div class="form-row" style="margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label for="evento-tipo">Tipo de Evento:</label>
+                            <select id="evento-tipo" onchange="mostrarFormularioEvento()">
+                                <option value="">Selecione o evento...</option>
+                                <option value="S-1200">S-1200 - Remuneração de Trabalhador</option>
+                                <option value="S-2200">S-2200 - Admissão de Trabalhador</option>
+                                <option value="S-2299">S-2299 - Desligamento</option>
+                                <option value="S-2230">S-2230 - Afastamento Temporário</option>
+                                <option value="S-1299">S-1299 - Fechamento Mensal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="evento-periodo">Período de Competência:</label>
+                            <input type="month" id="evento-periodo">
+                        </div>
+                    </div>
+
+                    <!-- Formulário S-1200 -->
+                    <div id="form-s1200" class="evento-form" style="display: none;">
+                        <h4>S-1200 - Remuneração de Trabalhador</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="s1200-funcionario">Funcionário:</label>
+                                <select id="s1200-funcionario" onchange="preencherDadosFuncionario()">
+                                    <option value="">Selecione o funcionário...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="s1200-categoria">Categoria:</label>
+                                <select id="s1200-categoria">
+                                    <option value="101">101 - Empregado geral</option>
+                                    <option value="102">102 - Empregado rural</option>
+                                    <option value="103">103 - Empregado doméstico</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn" onclick="gerarEventoS1200()">Gerar S-1200</button>
+                    </div>
+
+                    <!-- Formulário S-2200 -->
+                    <div id="form-s2200" class="evento-form" style="display: none;">
+                        <h4>S-2200 - Admissão de Trabalhador</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="s2200-funcionario">Funcionário:</label>
+                                <select id="s2200-funcionario">
+                                    <option value="">Selecione o funcionário...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="s2200-matricula">Matrícula:</label>
+                                <input type="text" id="s2200-matricula">
+                            </div>
+                        </div>
+                        <button class="btn" onclick="gerarEventoS2200()">Gerar S-2200</button>
+                    </div>
+
+                    <!-- Formulário S-2299 -->
+                    <div id="form-s2299" class="evento-form" style="display: none;">
+                        <h4>S-2299 - Desligamento</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="s2299-funcionario">Funcionário:</label>
+                                <select id="s2299-funcionario">
+                                    <option value="">Selecione o funcionário...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="s2299-data">Data de Desligamento:</label>
+                                <input type="date" id="s2299-data">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="s2299-motivo">Motivo:</label>
+                            <select id="s2299-motivo">
+                                <option value="01">01 - Dispensa sem justa causa</option>
+                                <option value="02">02 - Dispensa por justa causa</option>
+                                <option value="03">03 - Término de contrato</option>
+                                <option value="04">04 - Rescisão antecipada pelo empregado</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="gerarEventoS2299()">Gerar S-2299</button>
+                    </div>
+
+                    <!-- Lista de Eventos -->
+                    <div class="table-container" style="margin-top: 30px;">
+                        <h4>📋 Eventos Gerados</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Funcionário</th>
+                                    <th>Período</th>
+                                    <th>Status</th>
+                                    <th>Data Criação</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="eventos-tbody">
+                                <!-- Dados serão inseridos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab: Trabalhadores -->
+                <div id="esocial-trabalhadores" class="esocial-tab">
+                    <h3>👤 Cadastro de Trabalhadores e-Social</h3>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Categoria</th>
+                                    <th>Status e-Social</th>
+                                    <th>Último Evento</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trabalhadores-esocial-tbody">
+                                <!-- Dados serão inseridos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab: Remuneração -->
+                <div id="esocial-remuneracao" class="esocial-tab">
+                    <h3>💰 Controle de Remuneração</h3>
+                    
+                    <div class="form-row" style="margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label for="rem-periodo">Período:</label>
+                            <input type="month" id="rem-periodo">
+                        </div>
+                    </div>
+                    <button class="btn" onclick="processarRemuneracaoMensal()">🔄 Processar Remuneração Mensal</button>
+                    
+                    <div class="table-container" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Funcionário</th>
+                                    <th>Período</th>
+                                    <th>Salário Base</th>
+                                    <th>Proventos</th>
+                                    <th>Descontos</th>
+                                    <th>Status S-1200</th>
+                                </tr>
+                            </thead>
+                            <tbody id="remuneracao-tbody">
+                                <!-- Dados serão inseridos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab: Transmissão -->
+                <div id="esocial-transmissao" class="esocial-tab">
+                    <h3>📡 Transmissão e Monitoramento</h3>
+                    
+                    <div class="dashboard-cards" style="margin-bottom: 20px;">
+                        <div class="card">
+                            <h3>🔄 Fila de Transmissão</h3>
+                            <div class="value" id="fila-transmissao">0</div>
+                        </div>
+                        <div class="card">
+                            <h3>✅ Processados Hoje</h3>
+                            <div class="value" id="processados-hoje">0</div>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="transmitirEventos()">📤 Transmitir Eventos Pendentes</button>
+                    <button class="btn" onclick="consultarRetornos()" style="margin-left: 10px;">🔍 Consultar Retornos</button>
+                    
+                    <div id="transmissao-resultado" class="chart-container" style="display: none; margin-top: 20px;">
+                        <h4>📊 Resultado da Transmissão</h4>
+                        <div id="transmissao-log"></div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
     <script>
+        // Função para carregar dados do localStorage
+        function carregarDadosLocalStorage() {
+            const dados = localStorage.getItem('sistemaContabilidade');
+            return dados ? JSON.parse(dados) : null;
+        }
+
+        // Função para salvar dados no localStorage
+        function salvarDadosLocalStorage() {
+            localStorage.setItem('sistemaContabilidade', JSON.stringify(dadosCache));
+        }
+
+        // Função para registrar logs de auditoria
+        function registrarLog(acao, detalhes) {
+            const log = {
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                acao: acao,
+                detalhes: detalhes,
+                usuario: 'Sistema' // Em uma implementação real, seria o usuário logado
+            };
+            
+            dadosCache.logs.push(log);
+            
+            // Manter apenas os últimos 100 logs
+            if (dadosCache.logs.length > 100) {
+                dadosCache.logs = dadosCache.logs.slice(-100);
+            }
+            
+            salvarDadosLocalStorage();
+        }
+
         // Simulação de dados em cache (backend simulado)
-        let dadosCache = {
+        let dadosCache = carregarDadosLocalStorage() || {
             lancamentos: [
+                // Julho 2024
                 {
                     id: 1,
-                    data: '2024-08-01',
+                    data: '2024-07-01',
                     tipo: 'receita',
-                    conta: 'vendas',
-                    descricao: 'Venda de produtos',
-                    valor: 15000.00
+                    conta: 'banco',
+                    contaCredito: 'vendas',
+                    descricao: 'Venda de produtos - Cliente ABC Ltda',
+                    valor: 25800.00
                 },
                 {
                     id: 2,
-                    data: '2024-08-02',
+                    data: '2024-07-05',
                     tipo: 'despesa',
                     conta: 'fornecedores',
-                    descricao: 'Compra de matéria-prima',
-                    valor: 8500.00
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Compra de materiais de escritório',
+                    valor: 1250.00
                 },
                 {
                     id: 3,
-                    data: '2024-08-03',
+                    data: '2024-07-08',
                     tipo: 'receita',
-                    conta: 'vendas',
-                    descricao: 'Prestação de serviços',
-                    valor: 12000.00
+                    conta: 'caixa',
+                    contaCredito: 'vendas',
+                    descricao: 'Prestação de serviços - Cliente DEF S.A.',
+                    valor: 18500.00
                 },
                 {
                     id: 4,
-                    data: '2024-08-04',
+                    data: '2024-07-12',
                     tipo: 'despesa',
-                    conta: 'despesas-operacionais',
-                    descricao: 'Pagamento de aluguel',
-                    valor: 3500.00
+                    conta: 'banco',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Pagamento de energia elétrica',
+                    valor: 890.50
                 },
                 {
                     id: 5,
+                    data: '2024-07-15',
+                    tipo: 'receita',
+                    conta: 'banco',
+                    contaCredito: 'vendas',
+                    descricao: 'Venda online - E-commerce',
+                    valor: 32100.00
+                },
+                {
+                    id: 6,
+                    data: '2024-07-18',
+                    tipo: 'despesa',
+                    conta: 'banco',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Pagamento de salários',
+                    valor: 15800.00
+                },
+                {
+                    id: 7,
+                    data: '2024-07-22',
+                    tipo: 'receita',
+                    conta: 'caixa',
+                    contaCredito: 'vendas',
+                    descricao: 'Venda à vista - Loja física',
+                    valor: 8750.00
+                },
+                {
+                    id: 8,
+                    data: '2024-07-25',
+                    tipo: 'despesa',
+                    conta: 'fornecedores',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Compra de equipamentos de informática',
+                    valor: 4200.00
+                },
+                
+                // Agosto 2024
+                {
+                    id: 9,
+                    data: '2024-08-01',
+                    tipo: 'receita',
+                    conta: 'banco',
+                    contaCredito: 'vendas',
+                    descricao: 'Venda de produtos - Cliente XYZ Corp',
+                    valor: 28900.00
+                },
+                {
+                    id: 10,
+                    data: '2024-08-03',
+                    tipo: 'despesa',
+                    conta: 'banco',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Pagamento de aluguel comercial',
+                    valor: 3500.00
+                },
+                {
+                    id: 11,
                     data: '2024-08-05',
                     tipo: 'receita',
-                    conta: 'vendas',
-                    descricao: 'Venda online',
-                    valor: 18680.00
+                    conta: 'caixa',
+                    contaCredito: 'vendas',
+                    descricao: 'Prestação de consultoria',
+                    valor: 15000.00
+                },
+                {
+                    id: 12,
+                    data: '2024-08-08',
+                    tipo: 'despesa',
+                    conta: 'fornecedores',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Compra de matéria-prima industrial',
+                    valor: 12800.00
+                },
+                {
+                    id: 13,
+                    data: '2024-08-10',
+                    tipo: 'receita',
+                    conta: 'banco',
+                    contaCredito: 'vendas',
+                    descricao: 'Venda de serviços - Contrato mensal',
+                    valor: 22500.00
+                },
+                {
+                    id: 14,
+                    data: '2024-08-12',
+                    tipo: 'despesa',
+                    conta: 'banco',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Pagamento de telefone e internet',
+                    valor: 650.00
+                },
+                {
+                    id: 15,
+                    data: '2024-08-15',
+                    tipo: 'receita',
+                    conta: 'caixa',
+                    contaCredito: 'vendas',
+                    descricao: 'Venda à vista - Produtos diversos',
+                    valor: 9800.00
+                },
+                {
+                    id: 16,
+                    data: '2024-08-18',
+                    tipo: 'despesa',
+                    conta: 'banco',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Manutenção de equipamentos',
+                    valor: 2100.00
+                },
+                {
+                    id: 17,
+                    data: '2024-08-20',
+                    tipo: 'receita',
+                    conta: 'banco',
+                    contaCredito: 'vendas',
+                    descricao: 'Venda de produtos importados',
+                    valor: 35600.00
+                },
+                {
+                    id: 18,
+                    data: '2024-08-22',
+                    tipo: 'despesa',
+                    conta: 'fornecedores',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Compra de combustível - Frota',
+                    valor: 1800.00
+                },
+                {
+                    id: 19,
+                    data: '2024-08-25',
+                    tipo: 'receita',
+                    conta: 'caixa',
+                    contaCredito: 'vendas',
+                    descricao: 'Prestação de serviços técnicos',
+                    valor: 12300.00
+                },
+                {
+                    id: 20,
+                    data: '2024-08-28',
+                    tipo: 'despesa',
+                    conta: 'banco',
+                    contaDebito: 'despesas-operacionais',
+                    descricao: 'Pagamento de impostos municipais',
+                    valor: 3200.00
                 }
             ],
             contas: [
+                // ATIVO CIRCULANTE
                 {
                     codigo: '1.1.01',
                     nome: 'Caixa',
                     tipo: 'Ativo Circulante',
-                    saldo: 25000.00,
+                    natureza: 'devedora',
+                    saldo: 45850.00,
                     status: 'Ativo'
                 },
                 {
                     codigo: '1.1.02',
-                    nome: 'Banco Conta Corrente',
+                    nome: 'Banco Conta Corrente - Bradesco',
                     tipo: 'Ativo Circulante',
-                    saldo: 62920.00,
+                    natureza: 'devedora',
+                    saldo: 125400.00,
                     status: 'Ativo'
                 },
                 {
-                    codigo: '3.1.01',
-                    nome: 'Receitas de Vendas',
-                    tipo: 'Receita',
-                    saldo: 45680.00,
+                    codigo: '1.1.03',
+                    nome: 'Banco Conta Corrente - Itaú',
+                    tipo: 'Ativo Circulante',
+                    natureza: 'devedora',
+                    saldo: 89200.00,
                     status: 'Ativo'
                 },
                 {
-                    codigo: '4.1.01',
-                    nome: 'Despesas Operacionais',
-                    tipo: 'Despesa',
-                    saldo: 32450.00,
+                    codigo: '1.1.04',
+                    nome: 'Aplicações Financeiras',
+                    tipo: 'Ativo Circulante',
+                    natureza: 'devedora',
+                    saldo: 75000.00,
                     status: 'Ativo'
                 },
+                {
+                    codigo: '1.1.05',
+                    nome: 'Contas a Receber - Clientes',
+                    tipo: 'Ativo Circulante',
+                    natureza: 'devedora',
+                    saldo: 48500.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '1.1.06',
+                    nome: 'Estoque de Produtos',
+                    tipo: 'Ativo Circulante',
+                    natureza: 'devedora',
+                    saldo: 65200.00,
+                    status: 'Ativo'
+                },
+                
+                // ATIVO NÃO CIRCULANTE
+                {
+                    codigo: '1.2.01',
+                    nome: 'Imóveis',
+                    tipo: 'Ativo Não Circulante',
+                    natureza: 'devedora',
+                    saldo: 450000.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '1.2.02',
+                    nome: 'Móveis e Utensílios',
+                    tipo: 'Ativo Não Circulante',
+                    natureza: 'devedora',
+                    saldo: 25800.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '1.2.03',
+                    nome: 'Equipamentos de Informática',
+                    tipo: 'Ativo Não Circulante',
+                    natureza: 'devedora',
+                    saldo: 18600.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '1.2.04',
+                    nome: 'Veículos',
+                    tipo: 'Ativo Não Circulante',
+                    natureza: 'devedora',
+                    saldo: 85000.00,
+                    status: 'Ativo'
+                },
+                
+                // PASSIVO CIRCULANTE
                 {
                     codigo: '2.1.01',
                     nome: 'Fornecedores',
                     tipo: 'Passivo Circulante',
-                    saldo: 15800.00,
+                    natureza: 'credora',
+                    saldo: 32500.00,
                     status: 'Ativo'
+                },
+                {
+                    codigo: '2.1.02',
+                    nome: 'Salários a Pagar',
+                    tipo: 'Passivo Circulante',
+                    natureza: 'credora',
+                    saldo: 18900.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '2.1.03',
+                    nome: 'INSS a Recolher',
+                    tipo: 'Passivo Circulante',
+                    natureza: 'credora',
+                    saldo: 3200.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '2.1.04',
+                    nome: 'FGTS a Recolher',
+                    tipo: 'Passivo Circulante',
+                    natureza: 'credora',
+                    saldo: 1890.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '2.1.05',
+                    nome: 'ICMS a Recolher',
+                    tipo: 'Passivo Circulante',
+                    natureza: 'credora',
+                    saldo: 8222.40,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '2.1.06',
+                    nome: 'PIS a Recolher',
+                    tipo: 'Passivo Circulante',
+                    natureza: 'credora',
+                    saldo: 753.72,
+                    status: 'Ativo'
+                },
+                
+                // PATRIMÔNIO LÍQUIDO
+                {
+                    codigo: '2.2.01',
+                    nome: 'Capital Social',
+                    tipo: 'Patrimônio Líquido',
+                    natureza: 'credora',
+                    saldo: 100000.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '2.2.02',
+                    nome: 'Reservas de Lucros',
+                    tipo: 'Patrimônio Líquido',
+                    natureza: 'credora',
+                    saldo: 125600.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '2.2.03',
+                    nome: 'Lucros Acumulados',
+                    tipo: 'Patrimônio Líquido',
+                    natureza: 'credora',
+                    saldo: 89450.00,
+                    status: 'Ativo'
+                },
+                
+                // RECEITAS
+                {
+                    codigo: '3.1.01',
+                    nome: 'Receitas de Vendas',
+                    tipo: 'Receita',
+                    natureza: 'credora',
+                    saldo: 180350.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '3.1.02',
+                    nome: 'Receitas de Serviços',
+                    tipo: 'Receita',
+                    natureza: 'credora',
+                    saldo: 95800.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '3.2.01',
+                    nome: 'Receitas Financeiras',
+                    tipo: 'Receita',
+                    natureza: 'credora',
+                    saldo: 5450.00,
+                    status: 'Ativo'
+                },
+                
+                // DESPESAS
+                {
+                    codigo: '4.1.01',
+                    nome: 'Salários e Encargos',
+                    tipo: 'Despesa',
+                    natureza: 'devedora',
+                    saldo: 89600.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '4.1.02',
+                    nome: 'Aluguel',
+                    tipo: 'Despesa',
+                    natureza: 'devedora',
+                    saldo: 21000.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '4.1.03',
+                    nome: 'Energia Elétrica',
+                    tipo: 'Despesa',
+                    natureza: 'devedora',
+                    saldo: 5340.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '4.1.04',
+                    nome: 'Telefone e Internet',
+                    tipo: 'Despesa',
+                    natureza: 'devedora',
+                    saldo: 3900.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '4.1.05',
+                    nome: 'Material de Escritório',
+                    tipo: 'Despesa',
+                    natureza: 'devedora',
+                    saldo: 7500.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '4.1.06',
+                    nome: 'Combustível',
+                    tipo: 'Despesa',
+                    natureza: 'devedora',
+                    saldo: 10800.00,
+                    status: 'Ativo'
+                },
+                {
+                    codigo: '4.1.07',
+                    nome: 'Manutenção e Conservação',
+                    tipo: 'Despesa',
+                    natureza: 'devedora',
+                    saldo: 12600.00,
+                    status: 'Ativo'
+                }
+            ],
+            contasPagarReceber: [
+                // CONTAS A RECEBER
+                {
+                    id: 1,
+                    tipo: 'receber',
+                    vencimento: '2024-08-15',
+                    cliente: 'ABC Comércio Ltda',
+                    descricao: 'Venda de produtos eletrônicos - NF 1001',
+                    valor: 18500.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 2,
+                    tipo: 'receber',
+                    vencimento: '2024-08-20',
+                    cliente: 'DEF Indústria S.A.',
+                    descricao: 'Prestação de serviços técnicos - NF 1002',
+                    valor: 25000.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 3,
+                    tipo: 'receber',
+                    vencimento: '2024-08-25',
+                    cliente: 'GHI Construtora Ltda',
+                    descricao: 'Fornecimento de materiais - NF 1003',
+                    valor: 32800.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 4,
+                    tipo: 'receber',
+                    vencimento: '2024-09-05',
+                    cliente: 'JKL Empreendimentos',
+                    descricao: 'Consultoria empresarial - NF 1004',
+                    valor: 12500.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 5,
+                    tipo: 'receber',
+                    vencimento: '2024-09-10',
+                    cliente: 'MNO Atacado Ltda',
+                    descricao: 'Venda de produtos diversos - NF 1005',
+                    valor: 28900.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 6,
+                    tipo: 'receber',
+                    vencimento: '2024-08-05',
+                    cliente: 'PQR Comércio S.A.',
+                    descricao: 'Venda à prazo - NF 0999',
+                    valor: 15800.00,
+                    status: 'vencida'
+                },
+                {
+                    id: 7,
+                    tipo: 'receber',
+                    vencimento: '2024-07-30',
+                    cliente: 'STU Distribuidora',
+                    descricao: 'Fornecimento mensal - NF 0998',
+                    valor: 22400.00,
+                    status: 'vencida'
+                },
+
+                // CONTAS A PAGAR
+                {
+                    id: 8,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-10',
+                    cliente: 'Energia Elétrica - CEMIG',
+                    descricao: 'Conta de energia - Agosto/2024',
+                    valor: 1250.00,
+                    status: 'vencida'
+                },
+                {
+                    id: 9,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-12',
+                    cliente: 'Fornecedor Alpha Ltda',
+                    descricao: 'Compra de matéria-prima - NF 5001',
+                    valor: 18900.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 10,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-15',
+                    cliente: 'Beta Equipamentos S.A.',
+                    descricao: 'Manutenção de máquinas - OS 2024-08',
+                    valor: 4500.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 11,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-18',
+                    cliente: 'Gama Transportes',
+                    descricao: 'Frete de mercadorias - Julho/2024',
+                    valor: 2800.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 12,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-20',
+                    cliente: 'Delta Serviços Ltda',
+                    descricao: 'Serviços de limpeza - Agosto/2024',
+                    valor: 1200.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 13,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-25',
+                    cliente: 'Epsilon Informática',
+                    descricao: 'Suporte técnico mensal - Agosto/2024',
+                    valor: 850.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 14,
+                    tipo: 'pagar',
+                    vencimento: '2024-09-01',
+                    cliente: 'Imobiliária Zeta',
+                    descricao: 'Aluguel comercial - Setembro/2024',
+                    valor: 5500.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 15,
+                    tipo: 'pagar',
+                    vencimento: '2024-09-05',
+                    cliente: 'Theta Combustíveis',
+                    descricao: 'Abastecimento da frota - Agosto/2024',
+                    valor: 3200.00,
+                    status: 'pendente'
+                },
+                {
+                    id: 16,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-08',
+                    cliente: 'Iota Seguros S.A.',
+                    descricao: 'Seguro empresarial - Parcela 08/12',
+                    valor: 2100.00,
+                    status: 'vencida'
+                },
+                {
+                    id: 17,
+                    tipo: 'pagar',
+                    vencimento: '2024-07-28',
+                    cliente: 'Kappa Materiais',
+                    descricao: 'Compra de materiais de escritório',
+                    valor: 680.00,
+                    status: 'vencida'
+                },
+                {
+                    id: 18,
+                    tipo: 'pagar',
+                    vencimento: '2024-08-30',
+                    cliente: 'Lambda Contabilidade',
+                    descricao: 'Honorários contábeis - Agosto/2024',
+                    valor: 1800.00,
+                    status: 'pendente'
+                }
+            ],
+            logs: [
+                {
+                    id: 1,
+                    timestamp: '2024-08-01T08:30:00.000Z',
+                    acao: 'LANCAMENTO_CRIADO',
+                    detalhes: 'Novo lançamento: receita - Venda de produtos - Cliente XYZ Corp - R$ 28900',
+                    usuario: 'João Silva Santos'
+                },
+                {
+                    id: 2,
+                    timestamp: '2024-08-01T09:15:00.000Z',
+                    acao: 'IMPOSTO_APURADO',
+                    detalhes: 'ICMS apurado: 2024-08 - R$ 27738.00',
+                    usuario: 'Maria Oliveira Costa'
+                },
+                {
+                    id: 3,
+                    timestamp: '2024-08-02T10:20:00.000Z',
+                    acao: 'FUNCIONARIO_CADASTRADO',
+                    detalhes: 'Novo funcionário: Alexandre Vieira Santos - Auxiliar de Limpeza',
+                    usuario: 'Larissa Mendes Oliveira'
+                },
+                {
+                    id: 4,
+                    timestamp: '2024-08-03T11:45:00.000Z',
+                    acao: 'LANCAMENTO_CRIADO',
+                    detalhes: 'Novo lançamento: despesa - Pagamento de aluguel comercial - R$ 3500',
+                    usuario: 'Pedro Henrique Lima'
+                },
+                {
+                    id: 5,
+                    timestamp: '2024-08-05T14:30:00.000Z',
+                    acao: 'CONTA_CRIADA',
+                    detalhes: 'Nova conta receber: ABC Comércio Ltda - R$ 18500',
+                    usuario: 'Ana Carolina Ferreira'
+                },
+                {
+                    id: 6,
+                    timestamp: '2024-08-08T16:10:00.000Z',
+                    acao: 'FOLHA_PROCESSADA',
+                    detalhes: 'Folha processada para 2024-08 - 15 funcionários',
+                    usuario: 'Larissa Mendes Oliveira'
+                },
+                {
+                    id: 7,
+                    timestamp: '2024-08-10T09:25:00.000Z',
+                    acao: 'SPED_GERADO',
+                    detalhes: 'SPED Fiscal gerado para período 2024-08',
+                    usuario: 'João Silva Santos'
+                },
+                {
+                    id: 8,
+                    timestamp: '2024-08-12T13:40:00.000Z',
+                    acao: 'IMPOSTO_APURADO',
+                    detalhes: 'PIS apurado: 2024-08 - R$ 2542.65',
+                    usuario: 'Maria Oliveira Costa'
+                },
+                {
+                    id: 9,
+                    timestamp: '2024-08-15T08:55:00.000Z',
+                    acao: 'LANCAMENTO_CRIADO',
+                    detalhes: 'Novo lançamento: receita - Venda à vista - Produtos diversos - R$ 9800',
+                    usuario: 'Carlos Eduardo Rodrigues'
+                },
+                {
+                    id: 10,
+                    timestamp: '2024-08-18T15:20:00.000Z',
+                    acao: 'CONTA_CRIADA',
+                    detalhes: 'Nova conta pagar: Beta Equipamentos S.A. - R$ 4500',
+                    usuario: 'Roberto Martins Silva'
+                },
+                {
+                    id: 11,
+                    timestamp: '2024-08-20T11:35:00.000Z',
+                    acao: 'FUNCIONARIO_DESLIGADO',
+                    detalhes: 'Funcionário desligado: Lucas Teixeira Dias',
+                    usuario: 'Larissa Mendes Oliveira'
+                },
+                {
+                    id: 12,
+                    timestamp: '2024-08-22T16:45:00.000Z',
+                    acao: 'IMPOSTO_APURADO',
+                    detalhes: 'COFINS apurado: 2024-08 - R$ 11711.60',
+                    usuario: 'Maria Oliveira Costa'
+                },
+                {
+                    id: 13,
+                    timestamp: '2024-08-25T10:15:00.000Z',
+                    acao: 'LANCAMENTO_CRIADO',
+                    detalhes: 'Novo lançamento: receita - Prestação de serviços técnicos - R$ 12300',
+                    usuario: 'Beatriz Fernandes Cruz'
+                },
+                {
+                    id: 14,
+                    timestamp: '2024-08-28T14:50:00.000Z',
+                    acao: 'CONTA_EXCLUIDA',
+                    detalhes: 'Conta excluída: pagar - Fornecedor Teste - R$ 500',
+                    usuario: 'João Silva Santos'
+                },
+                {
+                    id: 15,
+                    timestamp: '2024-08-30T09:30:00.000Z',
+                    acao: 'SPED_GERADO',
+                    detalhes: 'SPED Fiscal gerado para período 2024-07',
+                    usuario: 'Pedro Henrique Lima'
+                }
+            ],
+            impostos: [
+                // Junho 2024
+                {
+                    id: 1,
+                    tipo: 'icms',
+                    periodo: '2024-06',
+                    baseCalculo: 38500.00,
+                    aliquota: 18.00,
+                    valor: 6930.00,
+                    status: 'recolhido'
+                },
+                {
+                    id: 2,
+                    tipo: 'pis',
+                    periodo: '2024-06',
+                    baseCalculo: 38500.00,
+                    aliquota: 1.65,
+                    valor: 635.25,
+                    status: 'recolhido'
+                },
+                {
+                    id: 3,
+                    tipo: 'cofins',
+                    periodo: '2024-06',
+                    baseCalculo: 38500.00,
+                    aliquota: 7.60,
+                    valor: 2926.00,
+                    status: 'recolhido'
+                },
+                {
+                    id: 4,
+                    tipo: 'irpj',
+                    periodo: '2024-06',
+                    baseCalculo: 8500.00,
+                    aliquota: 15.00,
+                    valor: 1275.00,
+                    status: 'recolhido'
+                },
+                
+                // Julho 2024
+                {
+                    id: 5,
+                    tipo: 'icms',
+                    periodo: '2024-07',
+                    baseCalculo: 85150.00,
+                    aliquota: 18.00,
+                    valor: 15327.00,
+                    status: 'recolhido'
+                },
+                {
+                    id: 6,
+                    tipo: 'pis',
+                    periodo: '2024-07',
+                    baseCalculo: 85150.00,
+                    aliquota: 1.65,
+                    valor: 1404.98,
+                    status: 'recolhido'
+                },
+                {
+                    id: 7,
+                    tipo: 'cofins',
+                    periodo: '2024-07',
+                    baseCalculo: 85150.00,
+                    aliquota: 7.60,
+                    valor: 6471.40,
+                    status: 'recolhido'
+                },
+                {
+                    id: 8,
+                    tipo: 'ipi',
+                    periodo: '2024-07',
+                    baseCalculo: 45800.00,
+                    aliquota: 5.00,
+                    valor: 2290.00,
+                    status: 'recolhido'
+                },
+                {
+                    id: 9,
+                    tipo: 'irpj',
+                    periodo: '2024-07',
+                    baseCalculo: 18600.00,
+                    aliquota: 15.00,
+                    valor: 2790.00,
+                    status: 'recolhido'
+                },
+                {
+                    id: 10,
+                    tipo: 'csll',
+                    periodo: '2024-07',
+                    baseCalculo: 18600.00,
+                    aliquota: 9.00,
+                    valor: 1674.00,
+                    status: 'recolhido'
+                },
+                
+                // Agosto 2024
+                {
+                    id: 11,
+                    tipo: 'icms',
+                    periodo: '2024-08',
+                    baseCalculo: 154100.00,
+                    aliquota: 18.00,
+                    valor: 27738.00,
+                    status: 'apurado'
+                },
+                {
+                    id: 12,
+                    tipo: 'pis',
+                    periodo: '2024-08',
+                    baseCalculo: 154100.00,
+                    aliquota: 1.65,
+                    valor: 2542.65,
+                    status: 'apurado'
+                },
+                {
+                    id: 13,
+                    tipo: 'cofins',
+                    periodo: '2024-08',
+                    baseCalculo: 154100.00,
+                    aliquota: 7.60,
+                    valor: 11711.60,
+                    status: 'apurado'
+                },
+                {
+                    id: 14,
+                    tipo: 'ipi',
+                    periodo: '2024-08',
+                    baseCalculo: 89200.00,
+                    aliquota: 5.00,
+                    valor: 4460.00,
+                    status: 'apurado'
+                },
+                {
+                    id: 15,
+                    tipo: 'irpj',
+                    periodo: '2024-08',
+                    baseCalculo: 42500.00,
+                    aliquota: 15.00,
+                    valor: 6375.00,
+                    status: 'apurado'
+                },
+                {
+                    id: 16,
+                    tipo: 'csll',
+                    periodo: '2024-08',
+                    baseCalculo: 42500.00,
+                    aliquota: 9.00,
+                    valor: 3825.00,
+                    status: 'apurado'
+                }
+            ],
+            funcionarios: [
+                {
+                    id: 1,
+                    nome: 'João Silva Santos',
+                    cpf: '123.456.789-00',
+                    cargo: 'Gerente Financeiro',
+                    departamento: 'financeiro',
+                    salarioBruto: 8500.00,
+                    dataAdmissao: '2022-03-15',
+                    ativo: true
+                },
+                {
+                    id: 2,
+                    nome: 'Maria Oliveira Costa',
+                    cpf: '987.654.321-00',
+                    cargo: 'Analista Contábil Senior',
+                    departamento: 'financeiro',
+                    salarioBruto: 6200.00,
+                    dataAdmissao: '2023-01-10',
+                    ativo: true
+                },
+                {
+                    id: 3,
+                    nome: 'Pedro Henrique Lima',
+                    cpf: '456.789.123-00',
+                    cargo: 'Assistente Contábil',
+                    departamento: 'financeiro',
+                    salarioBruto: 3800.00,
+                    dataAdmissao: '2024-02-20',
+                    ativo: true
+                },
+                {
+                    id: 4,
+                    nome: 'Ana Carolina Ferreira',
+                    cpf: '789.123.456-00',
+                    cargo: 'Coordenadora de Vendas',
+                    departamento: 'vendas',
+                    salarioBruto: 7200.00,
+                    dataAdmissao: '2022-08-05',
+                    ativo: true
+                },
+                {
+                    id: 5,
+                    nome: 'Carlos Eduardo Rodrigues',
+                    cpf: '321.654.987-00',
+                    cargo: 'Vendedor Senior',
+                    departamento: 'vendas',
+                    salarioBruto: 4800.00,
+                    dataAdmissao: '2023-04-12',
+                    ativo: true
+                },
+                {
+                    id: 6,
+                    nome: 'Fernanda Alves Pereira',
+                    cpf: '654.987.321-00',
+                    cargo: 'Vendedora Junior',
+                    departamento: 'vendas',
+                    salarioBruto: 3200.00,
+                    dataAdmissao: '2024-01-08',
+                    ativo: true
+                },
+                {
+                    id: 7,
+                    nome: 'Roberto Martins Silva',
+                    cpf: '147.258.369-00',
+                    cargo: 'Supervisor de Produção',
+                    departamento: 'producao',
+                    salarioBruto: 6500.00,
+                    dataAdmissao: '2021-11-22',
+                    ativo: true
+                },
+                {
+                    id: 8,
+                    nome: 'Juliana Santos Barbosa',
+                    cpf: '258.369.147-00',
+                    cargo: 'Operadora de Produção',
+                    departamento: 'producao',
+                    salarioBruto: 2800.00,
+                    dataAdmissao: '2023-07-15',
+                    ativo: true
+                },
+                {
+                    id: 9,
+                    nome: 'Marcos Antonio Souza',
+                    cpf: '369.147.258-00',
+                    cargo: 'Auxiliar de Produção',
+                    departamento: 'producao',
+                    salarioBruto: 2200.00,
+                    dataAdmissao: '2024-03-18',
+                    ativo: true
+                },
+                {
+                    id: 10,
+                    nome: 'Larissa Mendes Oliveira',
+                    cpf: '741.852.963-00',
+                    cargo: 'Analista de RH',
+                    departamento: 'rh',
+                    salarioBruto: 5200.00,
+                    dataAdmissao: '2023-02-28',
+                    ativo: true
+                },
+                {
+                    id: 11,
+                    nome: 'Ricardo Gomes Carvalho',
+                    cargo: 'Auxiliar Administrativo',
+                    cpf: '852.963.741-00',
+                    departamento: 'administrativo',
+                    salarioBruto: 2600.00,
+                    dataAdmissao: '2023-09-14',
+                    ativo: true
+                },
+                {
+                    id: 12,
+                    nome: 'Camila Rocha Nascimento',
+                    cpf: '963.741.852-00',
+                    cargo: 'Recepcionista',
+                    departamento: 'administrativo',
+                    salarioBruto: 2000.00,
+                    dataAdmissao: '2024-01-22',
+                    ativo: true
+                },
+                {
+                    id: 13,
+                    nome: 'Daniel Costa Moreira',
+                    cpf: '159.753.486-00',
+                    cargo: 'Motorista',
+                    departamento: 'administrativo',
+                    salarioBruto: 2400.00,
+                    dataAdmissao: '2023-06-08',
+                    ativo: true
+                },
+                {
+                    id: 14,
+                    nome: 'Beatriz Fernandes Cruz',
+                    cpf: '753.486.159-00',
+                    cargo: 'Analista de TI',
+                    departamento: 'administrativo',
+                    salarioBruto: 6800.00,
+                    dataAdmissao: '2022-12-03',
+                    ativo: true
+                },
+                {
+                    id: 15,
+                    nome: 'Alexandre Vieira Santos',
+                    cpf: '486.159.753-00',
+                    cargo: 'Auxiliar de Limpeza',
+                    departamento: 'administrativo',
+                    salarioBruto: 1800.00,
+                    dataAdmissao: '2024-04-10',
+                    ativo: true
+                },
+                // Funcionários desligados
+                {
+                    id: 16,
+                    nome: 'Lucas Teixeira Dias',
+                    cpf: '852.741.963-00',
+                    cargo: 'Ex-Vendedor',
+                    departamento: 'vendas',
+                    salarioBruto: 3500.00,
+                    dataAdmissao: '2023-01-05',
+                    ativo: false
+                },
+                {
+                    id: 17,
+                    nome: 'Patrícia Lima Ramos',
+                    cpf: '741.963.852-00',
+                    cargo: 'Ex-Auxiliar Contábil',
+                    departamento: 'financeiro',
+                    salarioBruto: 3200.00,
+                    dataAdmissao: '2023-03-12',
+                    ativo: false
+                }
+            ],
+            eventosESocial: [
+                {
+                    id: 1,
+                    tipo: 'S-1200',
+                    funcionarioId: 1,
+                    funcionarioNome: 'João Silva Santos',
+                    periodo: '2024-08',
+                    status: 'processado',
+                    dataCriacao: '2024-08-31T10:30:00.000Z',
+                    protocolo: 'ES240831001'
+                },
+                {
+                    id: 2,
+                    tipo: 'S-1200',
+                    funcionarioId: 2,
+                    funcionarioNome: 'Maria Oliveira Costa',
+                    periodo: '2024-08',
+                    status: 'processado',
+                    dataCriacao: '2024-08-31T10:35:00.000Z',
+                    protocolo: 'ES240831002'
+                },
+                {
+                    id: 3,
+                    tipo: 'S-2200',
+                    funcionarioId: 15,
+                    funcionarioNome: 'Alexandre Vieira Santos',
+                    periodo: '2024-08',
+                    status: 'pendente',
+                    dataCriacao: '2024-08-30T14:20:00.000Z',
+                    protocolo: null
+                }
+            ],
+            remuneracaoESocial: [
+                {
+                    id: 1,
+                    funcionarioId: 1,
+                    funcionarioNome: 'João Silva Santos',
+                    periodo: '2024-08',
+                    salarioBase: 8500.00,
+                    proventos: 8500.00,
+                    descontos: 1530.00,
+                    statusS1200: 'enviado'
+                },
+                {
+                    id: 2,
+                    funcionarioId: 2,
+                    funcionarioNome: 'Maria Oliveira Costa',
+                    periodo: '2024-08',
+                    salarioBase: 6200.00,
+                    proventos: 6200.00,
+                    descontos: 1085.00,
+                    statusS1200: 'enviado'
                 }
             ]
         };
@@ -498,10 +2455,21 @@
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.classList.remove('active');
+            });
 
-            // Adicionar classe active na seção e botão selecionados
+            // Adicionar classe active na seção selecionada
             document.getElementById(sectionName).classList.add('active');
-            event.target.classList.add('active');
+            
+            // Adicionar classe active no item do menu correspondente
+            if (event && event.target) {
+                if (event.target.classList.contains('dropdown-item')) {
+                    event.target.classList.add('active');
+                } else if (event.target.classList.contains('nav-btn')) {
+                    event.target.classList.add('active');
+                }
+            }
 
             // Carregar dados específicos da seção
             if (sectionName === 'lancamentos') {
@@ -510,6 +2478,20 @@
                 carregarContas();
             } else if (sectionName === 'dashboard') {
                 atualizarDashboard();
+            } else if (sectionName === 'diario') {
+                carregarDiario();
+            } else if (sectionName === 'razao') {
+                carregarRazao();
+            } else if (sectionName === 'contasreceber') {
+                carregarContasReceber();
+            } else if (sectionName === 'fiscal') {
+                carregarModuloFiscal();
+            } else if (sectionName === 'sped') {
+                carregarSpedFiscal();
+            } else if (sectionName === 'folha') {
+                carregarFolhaPagamento();
+            } else if (sectionName === 'esocial') {
+                carregarESocial();
             }
         }
 
@@ -580,6 +2562,12 @@
 
             dadosCache.lancamentos.unshift(novoLancamento);
             
+            // Registrar log de auditoria
+            registrarLog('LANCAMENTO_CRIADO', `Novo lançamento: ${novoLancamento.tipo} - ${novoLancamento.descricao} - R$ ${novoLancamento.valor}`);
+            
+            // Salvar no localStorage
+            salvarDadosLocalStorage();
+            
             // Limpar formulário
             this.reset();
             
@@ -595,7 +2583,15 @@
         // Excluir lançamento
         function excluirLancamento(id) {
             if (confirm('Tem certeza que deseja excluir este lançamento?')) {
+                const lancamentoExcluido = dadosCache.lancamentos.find(l => l.id === id);
                 dadosCache.lancamentos = dadosCache.lancamentos.filter(l => l.id !== id);
+                
+                // Registrar log de auditoria
+                if (lancamentoExcluido) {
+                    registrarLog('LANCAMENTO_EXCLUIDO', `Lançamento excluído: ${lancamentoExcluido.descricao} - R$ ${lancamentoExcluido.valor}`);
+                }
+                
+                salvarDadosLocalStorage();
                 carregarLancamentos();
                 atualizarDashboard();
                 alert('Lançamento excluído com sucesso!');
@@ -726,13 +2722,858 @@
             document.getElementById('relatorio-resultado').style.display = 'block';
         }
 
+        // ============ NOVAS FUNCIONALIDADES ============
+
+        // Carregar Livro Diário
+        function carregarDiario() {
+            const tbody = document.getElementById('diario-tbody');
+            tbody.innerHTML = '';
+
+            const lancamentosOrdenados = dadosCache.lancamentos
+                .sort((a, b) => new Date(a.data) - new Date(b.data));
+
+            lancamentosOrdenados.forEach(lancamento => {
+                const row = document.createElement('tr');
+                const dataFormatada = new Date(lancamento.data).toLocaleDateString('pt-BR');
+                const valorFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(lancamento.valor);
+
+                // Lógica de débito e crédito baseada no tipo
+                let debito = '', credito = '';
+                if (lancamento.tipo === 'receita') {
+                    debito = valorFormatado;
+                    credito = '';
+                } else {
+                    debito = '';
+                    credito = valorFormatado;
+                }
+
+                row.innerHTML = `
+                    <td>${dataFormatada}</td>
+                    <td>${lancamento.descricao}</td>
+                    <td>${lancamento.conta}</td>
+                    <td>${debito}</td>
+                    <td>${credito}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Filtrar Livro Diário por período
+        function filtrarDiario() {
+            const inicio = document.getElementById('diario-inicio').value;
+            const fim = document.getElementById('diario-fim').value;
+
+            if (!inicio || !fim) {
+                carregarDiario();
+                return;
+            }
+
+            const tbody = document.getElementById('diario-tbody');
+            tbody.innerHTML = '';
+
+            const lancamentosFiltrados = dadosCache.lancamentos
+                .filter(l => l.data >= inicio && l.data <= fim)
+                .sort((a, b) => new Date(a.data) - new Date(b.data));
+
+            lancamentosFiltrados.forEach(lancamento => {
+                const row = document.createElement('tr');
+                const dataFormatada = new Date(lancamento.data).toLocaleDateString('pt-BR');
+                const valorFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(lancamento.valor);
+
+                let debito = '', credito = '';
+                if (lancamento.tipo === 'receita') {
+                    debito = valorFormatado;
+                    credito = '';
+                } else {
+                    debito = '';
+                    credito = valorFormatado;
+                }
+
+                row.innerHTML = `
+                    <td>${dataFormatada}</td>
+                    <td>${lancamento.descricao}</td>
+                    <td>${lancamento.conta}</td>
+                    <td>${debito}</td>
+                    <td>${credito}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carregar Livro Razão
+        function carregarRazao() {
+            filtrarRazao();
+        }
+
+        function filtrarRazao() {
+            const contaFiltro = document.getElementById('conta-filtro').value;
+            const tbody = document.getElementById('razao-tbody');
+            tbody.innerHTML = '';
+
+            const contas = contaFiltro ? [contaFiltro] : ['caixa', 'banco', 'vendas', 'fornecedores', 'despesas-operacionais'];
+
+            contas.forEach(conta => {
+                const movimentacoes = dadosCache.lancamentos
+                    .filter(l => l.conta === conta)
+                    .sort((a, b) => new Date(a.data) - new Date(b.data));
+
+                let saldoAcumulado = 0;
+
+                movimentacoes.forEach(mov => {
+                    const row = document.createElement('tr');
+                    const dataFormatada = new Date(mov.data).toLocaleDateString('pt-BR');
+                    const valorFormatado = new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    }).format(mov.valor);
+
+                    let debito = '', credito = '';
+                    if (mov.tipo === 'receita') {
+                        debito = valorFormatado;
+                        saldoAcumulado += mov.valor;
+                    } else {
+                        credito = valorFormatado;
+                        saldoAcumulado -= mov.valor;
+                    }
+
+                    const saldoFormatado = new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    }).format(saldoAcumulado);
+
+                    row.innerHTML = `
+                        <td>${dataFormatada}</td>
+                        <td>${mov.descricao}</td>
+                        <td>${debito}</td>
+                        <td>${credito}</td>
+                        <td>${saldoFormatado}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+        }
+
+        // Gerar Balanço Patrimonial
+        function gerarBalanco() {
+            const dataRef = document.getElementById('balanco-data').value;
+            if (!dataRef) {
+                alert('Por favor, selecione a data de referência');
+                return;
+            }
+
+            // Calcular saldos das contas até a data de referência
+            const contasAtivo = dadosCache.contas.filter(c => c.tipo.includes('Ativo'));
+            const contasPassivo = dadosCache.contas.filter(c => c.tipo.includes('Passivo'));
+            const contasPL = dadosCache.contas.filter(c => c.tipo.includes('Patrimônio'));
+
+            let ativoContent = '<table style="width: 100%;">';
+            let totalAtivo = 0;
+
+            contasAtivo.forEach(conta => {
+                const saldoFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(conta.saldo);
+                
+                ativoContent += `<tr><td>${conta.nome}</td><td style="text-align: right;">${saldoFormatado}</td></tr>`;
+                totalAtivo += conta.saldo;
+            });
+
+            const totalAtivoFormatado = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(totalAtivo);
+
+            ativoContent += `<tr style="border-top: 2px solid #333; font-weight: bold;"><td>TOTAL ATIVO</td><td style="text-align: right;">${totalAtivoFormatado}</td></tr>`;
+            ativoContent += '</table>';
+
+            let passivoContent = '<table style="width: 100%;">';
+            let totalPassivo = 0;
+
+            contasPassivo.forEach(conta => {
+                const saldoFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(conta.saldo);
+                
+                passivoContent += `<tr><td>${conta.nome}</td><td style="text-align: right;">${saldoFormatado}</td></tr>`;
+                totalPassivo += conta.saldo;
+            });
+
+            contasPL.forEach(conta => {
+                const saldoFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(conta.saldo);
+                
+                passivoContent += `<tr><td>${conta.nome}</td><td style="text-align: right;">${saldoFormatado}</td></tr>`;
+                totalPassivo += conta.saldo;
+            });
+
+            const totalPassivoFormatado = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(totalPassivo);
+
+            passivoContent += `<tr style="border-top: 2px solid #333; font-weight: bold;"><td>TOTAL PASSIVO + PL</td><td style="text-align: right;">${totalPassivoFormatado}</td></tr>`;
+            passivoContent += '</table>';
+
+            document.getElementById('ativo-content').innerHTML = ativoContent;
+            document.getElementById('passivo-content').innerHTML = passivoContent;
+            document.getElementById('totais-balanco').innerHTML = `
+                <div style="text-align: center; font-weight: bold; font-size: 1.1rem;">
+                    Total Ativo: ${totalAtivoFormatado} | Total Passivo + PL: ${totalPassivoFormatado}
+                </div>
+            `;
+            
+            document.getElementById('balanco-resultado').style.display = 'block';
+        }
+
+        // Carregar Contas a Pagar/Receber
+        function carregarContasReceber() {
+            const tbody = document.getElementById('contas-receber-tbody');
+            tbody.innerHTML = '';
+
+            if (!dadosCache.contasPagarReceber) {
+                dadosCache.contasPagarReceber = [];
+                return;
+            }
+
+            let totalReceber = 0;
+            let totalPagar = 0;
+            let totalVencidas = 0;
+            const hoje = new Date();
+
+            dadosCache.contasPagarReceber.forEach(conta => {
+                const row = document.createElement('tr');
+                const vencimentoFormatado = new Date(conta.vencimento).toLocaleDateString('pt-BR');
+                const valorFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(conta.valor);
+
+                // Verificar se está vencida
+                const dataVencimento = new Date(conta.vencimento);
+                const isVencida = dataVencimento < hoje && conta.status === 'pendente';
+                
+                if (isVencida) {
+                    conta.status = 'vencida';
+                    totalVencidas++;
+                }
+
+                if (conta.tipo === 'receber') {
+                    totalReceber += conta.valor;
+                } else {
+                    totalPagar += conta.valor;
+                }
+
+                let statusClass = 'status ';
+                if (conta.status === 'vencida') statusClass += 'despesa';
+                else if (conta.status === 'pago') statusClass += 'receita';
+                else statusClass += 'pago';
+
+                row.innerHTML = `
+                    <td><span class="status ${conta.tipo}">${conta.tipo}</span></td>
+                    <td>${vencimentoFormatado}</td>
+                    <td>${conta.cliente}</td>
+                    <td>${conta.descricao}</td>
+                    <td>${valorFormatado}</td>
+                    <td><span class="${statusClass}">${conta.status}</span></td>
+                    <td>
+                        <button class="btn btn-danger" onclick="excluirContaReceber(${conta.id})" style="padding: 8px 16px; font-size: 0.9rem;">
+                            Excluir
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Atualizar totais
+            document.getElementById('total-receber').textContent = 
+                new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalReceber);
+            document.getElementById('total-pagar').textContent = 
+                new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalPagar);
+            document.getElementById('total-vencidas').textContent = totalVencidas;
+        }
+
+        // Adicionar nova conta a pagar/receber
+        document.getElementById('conta-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const novaConta = {
+                id: Date.now(),
+                tipo: document.getElementById('conta-tipo').value,
+                vencimento: document.getElementById('conta-vencimento').value,
+                cliente: document.getElementById('conta-cliente').value,
+                descricao: document.getElementById('conta-descricao').value,
+                valor: parseFloat(document.getElementById('conta-valor').value),
+                status: 'pendente'
+            };
+
+            dadosCache.contasPagarReceber.push(novaConta);
+            
+            // Registrar log de auditoria
+            registrarLog('CONTA_CRIADA', `Nova conta ${novaConta.tipo}: ${novaConta.cliente} - R$ ${novaConta.valor}`);
+            
+            // Salvar no localStorage
+            salvarDadosLocalStorage();
+            
+            // Limpar formulário
+            this.reset();
+            
+            // Recarregar tabela
+            carregarContasReceber();
+
+            alert('Conta adicionada com sucesso!');
+        });
+
+        // Excluir conta a pagar/receber
+        function excluirContaReceber(id) {
+            if (confirm('Tem certeza que deseja excluir esta conta?')) {
+                if (!dadosCache.contasPagarReceber) {
+                    dadosCache.contasPagarReceber = [];
+                    return;
+                }
+                
+                const contaExcluida = dadosCache.contasPagarReceber.find(c => c.id === id);
+                dadosCache.contasPagarReceber = dadosCache.contasPagarReceber.filter(c => c.id !== id);
+                
+                // Registrar log de auditoria
+                if (contaExcluida) {
+                    registrarLog('CONTA_EXCLUIDA', `Conta excluída: ${contaExcluida.tipo} - ${contaExcluida.cliente} - R$ ${contaExcluida.valor}`);
+                }
+                
+                salvarDadosLocalStorage();
+                carregarContasReceber();
+                alert('Conta excluída com sucesso!');
+            }
+        }
+
+        // ============ MÓDULO FISCAL ============
+
+        // Carregar Módulo Fiscal
+        function carregarModuloFiscal() {
+            carregarImpostos();
+            atualizarDashboardFiscal();
+        }
+
+        function carregarImpostos() {
+            const tbody = document.getElementById('impostos-tbody');
+            tbody.innerHTML = '';
+
+            if (!dadosCache.impostos) {
+                dadosCache.impostos = [];
+                return;
+            }
+
+            dadosCache.impostos.forEach(imposto => {
+                const row = document.createElement('tr');
+                const periodoFormatado = new Date(imposto.periodo + '-01').toLocaleDateString('pt-BR', { year: 'numeric', month: 'long' });
+                const baseFormatada = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(imposto.baseCalculo);
+                const valorFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(imposto.valor);
+
+                row.innerHTML = `
+                    <td><span class="status receita">${imposto.tipo.toUpperCase()}</span></td>
+                    <td>${periodoFormatado}</td>
+                    <td>${baseFormatada}</td>
+                    <td>${imposto.aliquota}%</td>
+                    <td>${valorFormatado}</td>
+                    <td><span class="status pago">${imposto.status}</span></td>
+                    <td>
+                        <button class="btn btn-danger" onclick="excluirImposto(${imposto.id})" style="padding: 8px 16px; font-size: 0.9rem;">
+                            Excluir
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function atualizarDashboardFiscal() {
+            if (!dadosCache.impostos) {
+                dadosCache.impostos = [];
+            }
+            
+            const icms = dadosCache.impostos.filter(i => i.tipo === 'icms').reduce((sum, i) => sum + i.valor, 0);
+            const pisCofins = dadosCache.impostos.filter(i => ['pis', 'cofins'].includes(i.tipo)).reduce((sum, i) => sum + i.valor, 0);
+
+            document.getElementById('icms-recolher').textContent = 
+                new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(icms);
+            document.getElementById('pis-cofins').textContent = 
+                new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(pisCofins);
+        }
+
+        // Adicionar novo imposto
+        document.getElementById('imposto-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const baseCalculo = parseFloat(document.getElementById('imposto-base').value);
+            const aliquota = parseFloat(document.getElementById('imposto-aliquota').value);
+            const valor = (baseCalculo * aliquota) / 100;
+
+            const novoImposto = {
+                id: Date.now(),
+                tipo: document.getElementById('imposto-tipo').value,
+                periodo: document.getElementById('imposto-periodo').value,
+                baseCalculo: baseCalculo,
+                aliquota: aliquota,
+                valor: valor,
+                status: 'apurado'
+            };
+
+            dadosCache.impostos.push(novoImposto);
+            
+            // Registrar log de auditoria
+            registrarLog('IMPOSTO_APURADO', `${novoImposto.tipo.toUpperCase()} apurado: ${novoImposto.periodo} - R$ ${novoImposto.valor.toFixed(2)}`);
+            
+            // Salvar no localStorage
+            salvarDadosLocalStorage();
+            
+            // Limpar formulário
+            this.reset();
+            
+            // Recarregar tabela
+            carregarImpostos();
+            atualizarDashboardFiscal();
+
+            alert('Imposto apurado com sucesso!');
+        });
+
+        // Excluir imposto
+        function excluirImposto(id) {
+            if (confirm('Tem certeza que deseja excluir esta apuração?')) {
+                const impostoExcluido = dadosCache.impostos.find(i => i.id === id);
+                dadosCache.impostos = dadosCache.impostos.filter(i => i.id !== id);
+                
+                // Registrar log de auditoria
+                if (impostoExcluido) {
+                    registrarLog('IMPOSTO_EXCLUIDO', `Imposto excluído: ${impostoExcluido.tipo.toUpperCase()} - ${impostoExcluido.periodo}`);
+                }
+                
+                salvarDadosLocalStorage();
+                carregarImpostos();
+                atualizarDashboardFiscal();
+                alert('Imposto excluído com sucesso!');
+            }
+        }
+
+        // Gerar SPED Fiscal
+        function gerarSpedFiscal() {
+            const periodo = document.getElementById('sped-periodo').value;
+            if (!periodo) {
+                alert('Selecione o período para gerar o SPED');
+                return;
+            }
+
+            if (!dadosCache.impostos) {
+                dadosCache.impostos = [];
+            }
+            
+            const impostosPeriodo = dadosCache.impostos.filter(i => i.periodo === periodo);
+            
+            if (impostosPeriodo.length === 0) {
+                alert('Não há apurações para o período selecionado');
+                return;
+            }
+
+            let spedContent = `
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; font-family: monospace;">
+                    <strong>ARQUIVO SPED FISCAL - PERÍODO: ${periodo}</strong><br><br>
+                    |0000|014|0|${new Date().toISOString().split('T')[0].replace(/-/g, '')}|${new Date().toISOString().split('T')[0].replace(/-/g, '')}|EMPRESA EXEMPLO LTDA|12345678000199|SP|123456789|1|0|<br>
+                    |0001|0|<br>
+                    |0005|SISTEMA CONTABILIDADE POC|1.0.0|<br>
+            `;
+
+            impostosPeriodo.forEach(imposto => {
+                spedContent += `|C100|0|1|${imposto.tipo.toUpperCase()}|${periodo.replace('-', '')}01|${imposto.baseCalculo.toFixed(2).replace('.', ',')}|${imposto.valor.toFixed(2).replace('.', ',')}|<br>`;
+            });
+
+            spedContent += `
+                    |9999|${impostosPeriodo.length + 4}|<br><br>
+                    <em>Arquivo gerado em: ${new Date().toLocaleString('pt-BR')}</em>
+                </div>
+            `;
+
+            document.getElementById('sped-content').innerHTML = spedContent;
+            document.getElementById('sped-resultado').style.display = 'block';
+            document.getElementById('sped-status').textContent = 'Gerado';
+
+            // Atualizar informações do dashboard SPED
+            document.getElementById('sped-status-card').textContent = 'Gerado';
+            document.getElementById('ultimo-periodo').textContent = periodo;
+            document.getElementById('total-registros').textContent = impostosPeriodo.length + 4;
+            document.getElementById('sped-data-geracao').textContent = `Gerado em: ${new Date().toLocaleString('pt-BR')}`;
+            document.getElementById('sped-periodo-exibido').textContent = periodo;
+            document.getElementById('sped-total-registros').textContent = impostosPeriodo.length + 4;
+
+            // Adicionar ao histórico
+            adicionarHistoricoSped(periodo, impostosPeriodo.length + 4);
+
+            // Registrar log
+            registrarLog('SPED_GERADO', `SPED Fiscal gerado para período ${periodo}`);
+        }
+
+        // ============ NOVA SEÇÃO SPED FISCAL ============
+
+        // Carregar seção SPED Fiscal
+        function carregarSpedFiscal() {
+            carregarHistoricoSped();
+            atualizarDashboardSped();
+        }
+
+        // Atualizar dashboard do SPED
+        function atualizarDashboardSped() {
+            // Valores podem ser atualizados dinamicamente
+        }
+
+        // Validar SPED Fiscal
+        function validarSpedFiscal() {
+            const spedResultado = document.getElementById('sped-resultado');
+            if (spedResultado.style.display === 'none') {
+                alert('Primeiro gere um arquivo SPED para validar');
+                return;
+            }
+
+            // Simulação de validação
+            setTimeout(() => {
+                document.getElementById('sped-status-validacao').textContent = 'Validado';
+                document.getElementById('sped-status-validacao').className = 'status receita';
+                alert('SPED Fiscal validado com sucesso!\n\n✅ Estrutura correta\n✅ Registros consistentes\n✅ Pronto para transmissão');
+            }, 1000);
+        }
+
+        // Exportar SPED Fiscal
+        function exportarSpedFiscal() {
+            const spedResultado = document.getElementById('sped-resultado');
+            if (spedResultado.style.display === 'none') {
+                alert('Primeiro gere um arquivo SPED para exportar');
+                return;
+            }
+
+            const periodo = document.getElementById('sped-periodo').value;
+            const conteudo = document.getElementById('sped-content').textContent;
+            
+            // Criar um blob com o conteúdo do SPED
+            const blob = new Blob([conteudo], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `SPED_FISCAL_${periodo.replace('-', '')}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            registrarLog('SPED_EXPORTADO', `SPED Fiscal exportado: ${periodo}`);
+            alert('Arquivo SPED exportado com sucesso!');
+        }
+
+        // Adicionar ao histórico de SPED
+        function adicionarHistoricoSped(periodo, registros) {
+            if (!dadosCache.historicoSped) {
+                dadosCache.historicoSped = [];
+            }
+
+            const novoHistorico = {
+                id: Date.now(),
+                periodo: periodo,
+                dataGeracao: new Date().toISOString(),
+                registros: registros,
+                status: 'Gerado'
+            };
+
+            dadosCache.historicoSped.unshift(novoHistorico);
+            salvarDadosLocalStorage();
+            carregarHistoricoSped();
+        }
+
+        // Carregar histórico de SPED
+        function carregarHistoricoSped() {
+            const tbody = document.getElementById('historico-sped-tbody');
+            tbody.innerHTML = '';
+
+            if (!dadosCache.historicoSped) {
+                dadosCache.historicoSped = [];
+                return;
+            }
+
+            dadosCache.historicoSped.forEach(sped => {
+                const row = document.createElement('tr');
+                const dataFormatada = new Date(sped.dataGeracao).toLocaleString('pt-BR');
+
+                row.innerHTML = `
+                    <td>${sped.periodo}</td>
+                    <td>${dataFormatada}</td>
+                    <td>${sped.registros}</td>
+                    <td><span class="status pago">${sped.status}</span></td>
+                    <td>
+                        <button class="btn" onclick="regerarSped('${sped.periodo}')" style="padding: 8px 16px; font-size: 0.8rem;">
+                            🔄 Regerar
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Regerar SPED
+        function regerarSped(periodo) {
+            document.getElementById('sped-periodo').value = periodo;
+            gerarSpedFiscal();
+        }
+
+        // ============ FOLHA DE PAGAMENTO ============
+
+        // Carregar Folha de Pagamento
+        function carregarFolhaPagamento() {
+            carregarFuncionarios();
+            atualizarDashboardFolha();
+        }
+
+        function carregarFuncionarios() {
+            const tbody = document.getElementById('funcionarios-tbody');
+            tbody.innerHTML = '';
+
+            if (!dadosCache.funcionarios) {
+                dadosCache.funcionarios = [];
+                return;
+            }
+
+            dadosCache.funcionarios.filter(f => f.ativo).forEach(funcionario => {
+                const row = document.createElement('tr');
+                const admissaoFormatada = new Date(funcionario.dataAdmissao).toLocaleDateString('pt-BR');
+                const salarioBrutoFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(funcionario.salarioBruto);
+                
+                // Calcular salário líquido (aproximado)
+                const inss = Math.min(funcionario.salarioBruto * 0.11, 877.24); // Teto INSS 2024
+                const irrf = funcionario.salarioBruto > 2259.20 ? (funcionario.salarioBruto - 2259.20) * 0.075 : 0;
+                const salarioLiquido = funcionario.salarioBruto - inss - irrf;
+                
+                const salarioLiquidoFormatado = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(salarioLiquido);
+
+                row.innerHTML = `
+                    <td>${funcionario.nome}</td>
+                    <td>${funcionario.cpf}</td>
+                    <td>${funcionario.cargo}</td>
+                    <td><span class="status receita">${funcionario.departamento}</span></td>
+                    <td>${salarioBrutoFormatado}</td>
+                    <td>${salarioLiquidoFormatado}</td>
+                    <td>${admissaoFormatada}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="excluirFuncionario(${funcionario.id})" style="padding: 8px 16px; font-size: 0.9rem;">
+                            Desligar
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function atualizarDashboardFolha() {
+            if (!dadosCache.funcionarios) {
+                dadosCache.funcionarios = [];
+            }
+            
+            const funcionariosAtivos = dadosCache.funcionarios.filter(f => f.ativo);
+            const folhaBruta = funcionariosAtivos.reduce((sum, f) => sum + f.salarioBruto, 0);
+            const encargos = folhaBruta * 0.36; // Encargos aproximados (36%)
+            const folhaLiquida = folhaBruta * 0.75; // Líquida aproximada (75%)
+
+            document.getElementById('total-funcionarios').textContent = funcionariosAtivos.length;
+            document.getElementById('folha-bruta').textContent = 
+                new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(folhaBruta);
+            document.getElementById('total-encargos').textContent = 
+                new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(encargos);
+            document.getElementById('folha-liquida').textContent = 
+                new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(folhaLiquida);
+        }
+
+        // Adicionar novo funcionário
+        document.getElementById('funcionario-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const novoFuncionario = {
+                id: Date.now(),
+                nome: document.getElementById('func-nome').value,
+                cpf: document.getElementById('func-cpf').value,
+                cargo: document.getElementById('func-cargo').value,
+                departamento: document.getElementById('func-departamento').value,
+                salarioBruto: parseFloat(document.getElementById('func-salario').value),
+                dataAdmissao: document.getElementById('func-admissao').value,
+                ativo: true
+            };
+
+            dadosCache.funcionarios.push(novoFuncionario);
+            
+            // Registrar log de auditoria
+            registrarLog('FUNCIONARIO_CADASTRADO', `Novo funcionário: ${novoFuncionario.nome} - ${novoFuncionario.cargo}`);
+            
+            // Salvar no localStorage
+            salvarDadosLocalStorage();
+            
+            // Limpar formulário
+            this.reset();
+            
+            // Recarregar tabela
+            carregarFuncionarios();
+            atualizarDashboardFolha();
+
+            alert('Funcionário cadastrado com sucesso!');
+        });
+
+        // Desligar funcionário
+        function excluirFuncionario(id) {
+            if (confirm('Tem certeza que deseja desligar este funcionário?')) {
+                if (!dadosCache.funcionarios) {
+                    dadosCache.funcionarios = [];
+                    return;
+                }
+                
+                const funcionario = dadosCache.funcionarios.find(f => f.id === id);
+                if (funcionario) {
+                    funcionario.ativo = false;
+                    
+                    // Registrar log de auditoria
+                    registrarLog('FUNCIONARIO_DESLIGADO', `Funcionário desligado: ${funcionario.nome}`);
+                }
+                
+                salvarDadosLocalStorage();
+                carregarFuncionarios();
+                atualizarDashboardFolha();
+                alert('Funcionário desligado com sucesso!');
+            }
+        }
+
+        // Processar Folha de Pagamento
+        function processarFolha() {
+            const periodo = document.getElementById('folha-periodo').value;
+            if (!periodo) {
+                alert('Selecione o período para processar a folha');
+                return;
+            }
+
+            if (!dadosCache.funcionarios) {
+                dadosCache.funcionarios = [];
+            }
+            
+            const funcionariosAtivos = dadosCache.funcionarios.filter(f => f.ativo);
+            
+            if (funcionariosAtivos.length === 0) {
+                alert('Não há funcionários ativos para processar');
+                return;
+            }
+
+            let resumoContent = `
+                <table style="width: 100%; margin-top: 20px;">
+                    <tr><th colspan="2" style="text-align: center; background: #667eea; color: white;">RESUMO DA FOLHA - ${periodo}</th></tr>
+            `;
+
+            let totalBruto = 0;
+            let totalLiquido = 0;
+            let totalEncargos = 0;
+
+            funcionariosAtivos.forEach(func => {
+                const inss = Math.min(func.salarioBruto * 0.11, 877.24);
+                const irrf = func.salarioBruto > 2259.20 ? (func.salarioBruto - 2259.20) * 0.075 : 0;
+                const liquido = func.salarioBruto - inss - irrf;
+                const encargos = func.salarioBruto * 0.36;
+
+                totalBruto += func.salarioBruto;
+                totalLiquido += liquido;
+                totalEncargos += encargos;
+
+                resumoContent += `
+                    <tr>
+                        <td>${func.nome}</td>
+                        <td style="text-align: right;">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(liquido)}</td>
+                    </tr>
+                `;
+            });
+
+            resumoContent += `
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td>TOTAL FOLHA BRUTA</td>
+                        <td style="text-align: right;">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalBruto)}</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td>TOTAL FOLHA LÍQUIDA</td>
+                        <td style="text-align: right;">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalLiquido)}</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td>TOTAL ENCARGOS</td>
+                        <td style="text-align: right;">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalEncargos)}</td>
+                    </tr>
+                </table>
+            `;
+
+            document.getElementById('folha-resumo').innerHTML = resumoContent;
+            document.getElementById('folha-resultado').style.display = 'block';
+
+            // Registrar log
+            registrarLog('FOLHA_PROCESSADA', `Folha processada para ${periodo} - ${funcionariosAtivos.length} funcionários`);
+
+            alert('Folha de pagamento processada com sucesso!');
+        }
+
+        // ============ FUNÇÕES ESPECIAIS DE NAVEGAÇÃO ============
+
+
+        // Mostrar seção de funcionários com foco na tabela
+        function showFuncionariosSection() {
+            showSection('folha');
+            // Scroll para a lista de funcionários após carregar
+            setTimeout(() => {
+                const funcSection = document.querySelector('#funcionarios-tbody');
+                if (funcSection) {
+                    funcSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+
         // Definir data padrão para hoje
         document.getElementById('data').valueAsDate = new Date();
+        document.getElementById('balanco-data').valueAsDate = new Date();
+        
+        // Definir períodos padrão
+        const hoje = new Date();
+        const mesAtual = hoje.getFullYear() + '-' + String(hoje.getMonth() + 1).padStart(2, '0');
+        document.getElementById('sped-periodo').value = mesAtual;
+        document.getElementById('folha-periodo').value = mesAtual;
+        document.getElementById('imposto-periodo').value = mesAtual;
+        
+        // e-Social
+        if (document.getElementById('evento-periodo')) {
+            document.getElementById('evento-periodo').value = mesAtual;
+        }
+        if (document.getElementById('rem-periodo')) {
+            document.getElementById('rem-periodo').value = mesAtual;
+        }
 
         // Carregar dados iniciais
         carregarLancamentos();
         carregarContas();
         atualizarDashboard();
+        
+        // Salvar dados iniciais se não existir no localStorage
+        if (!localStorage.getItem('sistemaContabilidade')) {
+            salvarDadosLocalStorage();
+        }
 
         // Simular atualizações em tempo real
         setInterval(() => {
