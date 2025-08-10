@@ -27,48 +27,67 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 20px 30px;
+            padding: 15px 20px;
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 1000;
+            margin-bottom: 15px;
+        }
+
+        .header-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .header h1 {
             color: #2c3e50;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
         }
 
         .nav {
             display: flex;
-            gap: 10px;
+            gap: 6px;
             flex-wrap: wrap;
             align-items: center;
+            justify-content: center;
+            overflow: visible;
+            max-width: 100%;
         }
 
         .nav-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 9999;
         }
 
         .nav-btn {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
+            padding: 8px 14px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
+            white-space: nowrap;
+            min-width: max-content;
+            flex-shrink: 0;
         }
 
         .nav-btn:hover {
@@ -91,27 +110,88 @@
         }
 
         .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
+            position: fixed;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
             min-width: 220px;
+            max-width: 300px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
-            z-index: 10000;
+            z-index: 99999;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-top: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
         }
 
         .nav-dropdown:hover .dropdown-menu {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+        }
+
+        /* Posicionamento será feito via JavaScript */
+
+        /* Ajustes específicos para desktop largo */
+        @media (min-width: 1400px) {
+            .nav {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+                gap: 6px;
+            }
+        }
+
+        /* Desktop médio */
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            .nav {
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                padding: 9px 14px;
+                font-size: 0.8rem;
+                gap: 5px;
+            }
+        }
+
+        /* Desktop pequeno e tablets */
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .nav {
+                gap: 6px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+                gap: 4px;
+            }
+            
+            .module-icon {
+                font-size: 0.85rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header {
+                padding: 12px 15px;
+            }
         }
 
         .dropdown-item {
@@ -199,7 +279,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             min-height: 600px;
             position: relative;
-            z-index: 1;
+            z-index: 0;
         }
 
         .section {
@@ -344,6 +424,110 @@
             color: #155724;
         }
 
+        /* Status específicos para usuários */
+        .status.admin {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+
+        .status.usuario {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .status.contador {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+        }
+
+        .status.ativo {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .status.bloqueado {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        /* Status e-Social */
+        .status.success {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .status.error {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .status.warning {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+        }
+
+        /* Estilos do Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e6ed;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 20px;
+            border-top: 1px solid #e0e6ed;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -356,6 +540,143 @@
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100%;
+            min-height: 250px;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                padding: 15px;
+                margin-top: 15px;
+            }
+            
+            .chart-container h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            #chartTooltip {
+                font-size: 11px !important;
+                padding: 6px !important;
+                max-width: 200px;
+                word-wrap: break-word;
+            }
+            
+            .chart-container canvas {
+                min-height: 200px;
+            }
+        }
+
+        /* Menu Hambúrguer para Mobile */
+        .hamburger-menu {
+            display: none;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10000;
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            transition: left 0.3s ease;
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 20px 0;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .mobile-menu-section {
+            padding: 10px 0;
+        }
+
+        .mobile-menu-title {
+            padding: 15px 20px 10px;
+            font-weight: bold;
+            color: white;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin: 0;
+        }
+
+        .mobile-menu-item {
+            display: block;
+            padding: 15px 20px 15px 40px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .mobile-menu-item:hover,
+        .mobile-menu-item:focus {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding-left: 50px;
+        }
+
+        .mobile-menu-item .module-icon {
+            margin-right: 10px;
+            font-size: 1rem;
         }
 
         @media (max-width: 768px) {
@@ -363,64 +684,49 @@
                 grid-template-columns: 1fr;
             }
             
-            .nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
+            .header-nav {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+            }
+
+            .mobile-menu-overlay {
+                display: block;
             }
             
-            .header {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav-btn {
-                padding: 10px 16px;
-                font-size: 0.8rem;
-            }
-
-            .module-icon {
-                font-size: 0.9rem;
-                margin-right: 6px;
-            }
-
-            .dropdown-menu {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                min-width: 280px;
-                max-height: 70vh;
-                overflow-y: auto;
-            }
-
-            .nav-dropdown:hover .dropdown-menu {
-                transform: translate(-50%, -50%);
-            }
-
-            .dropdown-item {
-                padding: 15px 20px;
-                font-size: 1rem;
+            .header-top {
+                margin-bottom: 0;
             }
 
             .dashboard-cards {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                 gap: 15px;
             }
+
+            .main-content {
+                padding: 20px;
+            }
         }
 
         @media (max-width: 480px) {
-            .nav-btn {
-                padding: 8px 12px;
-                font-size: 0.75rem;
-            }
-
-            .dropdown-menu {
-                min-width: 95vw;
+            .mobile-menu {
+                width: 280px;
+                left: -280px;
             }
 
             .header h1 {
                 font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
         }
     </style>
@@ -428,12 +734,19 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>📊 Sistema de Contabilidade</h1>
-            <nav class="nav">
+            <div class="header-top">
+                <h1>📊 Sistema de Contabilidade</h1>
+                <button class="hamburger-menu" onclick="toggleMobileMenu()" onmousedown="console.log('Hamburger clicked')">
+                    ☰
+                </button>
+            </div>
+            <div class="header-nav">
+                <nav class="nav">
                 <!-- Dashboard Principal -->
                 <button class="nav-btn active" onclick="showSection('dashboard')">
                     <span class="module-icon">📊</span> Dashboard
                 </button>
+
 
                 <!-- Módulo Contábil -->
                 <div class="nav-dropdown">
@@ -506,8 +819,129 @@
                         </button>
                     </div>
                 </div>
-            </nav>
+
+                <!-- Configurações -->
+                <div class="nav-dropdown">
+                    <button class="nav-btn dropdown-toggle">
+                        <span class="module-icon">⚙️</span> Configurações
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="showSection('config-empresa')">
+                            <span class="module-icon">🏢</span> Dados da Empresa
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('config-sistema')">
+                            <span class="module-icon">🔧</span> Sistema
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('config-usuarios')">
+                            <span class="module-icon">👥</span> Usuários
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('config-backup')">
+                            <span class="module-icon">💾</span> Backup & Dados
+                        </button>
+                        <button class="dropdown-item" onclick="showSection('config-contas')">
+                            <span class="module-icon">🏦</span> Plano de Contas
+                        </button>
+                    </div>
+                </div>
+                </nav>
+            </div>
         </header>
+
+        <!-- Menu Mobile -->
+        <div class="mobile-menu-overlay" onclick="closeMobileMenu()" id="mobileMenuOverlay"></div>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <h3>📊 Menu</h3>
+                <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+            </div>
+            
+            <div class="mobile-menu-section">
+                <button class="mobile-menu-item" onclick="showSection('dashboard'); closeMobileMenu();">
+                    <span class="module-icon">📊</span> Dashboard
+                </button>
+            </div>
+
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">
+                    <span class="module-icon">📚</span> Contábil
+                </h4>
+                <button class="mobile-menu-item" onclick="showSection('lancamentos'); closeMobileMenu();">
+                    <span class="module-icon">💰</span> Lançamentos
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('contas'); closeMobileMenu();">
+                    <span class="module-icon">🏦</span> Plano de Contas
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('diario'); closeMobileMenu();">
+                    <span class="module-icon">📖</span> Livro Diário
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('razao'); closeMobileMenu();">
+                    <span class="module-icon">📋</span> Livro Razão
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('contasreceber'); closeMobileMenu();">
+                    <span class="module-icon">💸</span> Contas a Pagar/Receber
+                </button>
+            </div>
+
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">
+                    <span class="module-icon">📊</span> Relatórios
+                </h4>
+                <button class="mobile-menu-item" onclick="showSection('relatorios'); closeMobileMenu();">
+                    <span class="module-icon">📈</span> DRE
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('balanco'); closeMobileMenu();">
+                    <span class="module-icon">⚖️</span> Balanço Patrimonial
+                </button>
+            </div>
+
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">
+                    <span class="module-icon">🏛️</span> Fiscal
+                </h4>
+                <button class="mobile-menu-item" onclick="showSection('fiscal'); closeMobileMenu();">
+                    <span class="module-icon">📋</span> Obrigações Fiscais
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('sped'); closeMobileMenu();">
+                    <span class="module-icon">📄</span> SPED Contábil
+                </button>
+            </div>
+
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">
+                    <span class="module-icon">👥</span> RH & Folha
+                </h4>
+                <button class="mobile-menu-item" onclick="showSection('folha'); closeMobileMenu();">
+                    <span class="module-icon">💼</span> Folha de Pagamento
+                </button>
+                <button class="mobile-menu-item" onclick="showFuncionariosSection(); closeMobileMenu();">
+                    <span class="module-icon">👤</span> Funcionários
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('esocial'); closeMobileMenu();">
+                    <span class="module-icon">🔗</span> e-Social
+                </button>
+            </div>
+
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">
+                    <span class="module-icon">⚙️</span> Configurações
+                </h4>
+                <button class="mobile-menu-item" onclick="showSection('config-empresa'); closeMobileMenu();">
+                    <span class="module-icon">🏢</span> Dados da Empresa
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('config-sistema'); closeMobileMenu();">
+                    <span class="module-icon">🔧</span> Sistema
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('config-usuarios'); closeMobileMenu();">
+                    <span class="module-icon">👥</span> Usuários
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('config-backup'); closeMobileMenu();">
+                    <span class="module-icon">💾</span> Backup & Dados
+                </button>
+                <button class="mobile-menu-item" onclick="showSection('config-contas'); closeMobileMenu();">
+                    <span class="module-icon">🏦</span> Plano de Contas
+                </button>
+            </div>
+        </div>
 
         <main class="main-content">
             <!-- Dashboard Section -->
@@ -538,7 +972,10 @@
 
                 <div class="chart-container">
                     <h3>Fluxo de Caixa - Últimos 6 Meses</h3>
-                    <canvas id="fluxoCaixaChart" width="400" height="200"></canvas>
+                    <div style="position: relative;">
+                        <canvas id="fluxoCaixaChart" width="400" height="200" style="cursor: pointer;"></canvas>
+                        <div id="chartTooltip" style="position: absolute; background: rgba(0,0,0,0.8); color: white; padding: 8px; border-radius: 4px; font-size: 12px; pointer-events: none; display: none; z-index: 1000;"></div>
+                    </div>
                 </div>
             </section>
 
@@ -1240,7 +1677,7 @@
                                     <th>Ações</th>
                                 </tr>
                             </thead>
-                            <tbody id="eventos-tbody">
+                            <tbody id="eventos-esocial-tbody">
                                 <!-- Dados serão inseridos via JavaScript -->
                             </tbody>
                         </table>
@@ -1257,9 +1694,9 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>CPF</th>
-                                    <th>Categoria</th>
+                                    <th>Cargo</th>
+                                    <th>Admissão</th>
                                     <th>Status e-Social</th>
-                                    <th>Último Evento</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -1292,9 +1729,10 @@
                                     <th>Proventos</th>
                                     <th>Descontos</th>
                                     <th>Status S-1200</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
-                            <tbody id="remuneracao-tbody">
+                            <tbody id="remuneracao-esocial-tbody">
                                 <!-- Dados serão inseridos via JavaScript -->
                             </tbody>
                         </table>
@@ -1318,6 +1756,8 @@
 
                     <button class="btn" onclick="transmitirEventos()">📤 Transmitir Eventos Pendentes</button>
                     <button class="btn" onclick="consultarRetornos()" style="margin-left: 10px;">🔍 Consultar Retornos</button>
+                    <button class="btn" onclick="validarTodosFuncionarios()" style="margin-left: 10px;">✅ Validar Dados</button>
+                    <button class="btn" onclick="processarIntegracaoContabil()" style="margin-left: 10px;">🔗 Integração Contábil</button>
                     
                     <div id="transmissao-resultado" class="chart-container" style="display: none; margin-top: 20px;">
                         <h4>📊 Resultado da Transmissão</h4>
@@ -1325,10 +1765,454 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Configurações da Empresa -->
+            <section id="config-empresa" class="section">
+                <h2>🏢 Configurações da Empresa</h2>
+                
+                <div class="form-container">
+                    <form id="empresa-form">
+                        <h3>Dados Gerais</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresa-razao">Razão Social:</label>
+                                <input type="text" id="empresa-razao" value="Empresa Exemplo Ltda." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-fantasia">Nome Fantasia:</label>
+                                <input type="text" id="empresa-fantasia" value="Empresa Exemplo">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresa-cnpj">CNPJ:</label>
+                                <input type="text" id="empresa-cnpj" value="12.345.678/0001-90" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-ie">Inscrição Estadual:</label>
+                                <input type="text" id="empresa-ie" value="123.456.789.012">
+                            </div>
+                        </div>
+
+                        <h3>Endereço</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresa-cep">CEP:</label>
+                                <input type="text" id="empresa-cep" value="01234-567">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-logradouro">Logradouro:</label>
+                                <input type="text" id="empresa-logradouro" value="Rua Exemplo, 123">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresa-cidade">Cidade:</label>
+                                <input type="text" id="empresa-cidade" value="São Paulo">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-uf">UF:</label>
+                                <select id="empresa-uf">
+                                    <option value="SP" selected>SP - São Paulo</option>
+                                    <option value="RJ">RJ - Rio de Janeiro</option>
+                                    <option value="MG">MG - Minas Gerais</option>
+                                    <option value="RS">RS - Rio Grande do Sul</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h3>Contato</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresa-telefone">Telefone:</label>
+                                <input type="tel" id="empresa-telefone" value="(11) 1234-5678">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa-email">E-mail:</label>
+                                <input type="email" id="empresa-email" value="contato@empresaexemplo.com.br">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn">💾 Salvar Configurações</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Configurações do Sistema -->
+            <section id="config-sistema" class="section">
+                <h2>🔧 Configurações do Sistema</h2>
+                
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>🎨 Personalização</h3>
+                        <div class="form-group">
+                            <label for="tema-sistema">Tema:</label>
+                            <select id="tema-sistema">
+                                <option value="claro" selected>🌞 Claro</option>
+                                <option value="escuro">🌙 Escuro</option>
+                                <option value="auto">🔄 Automático</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="idioma-sistema">Idioma:</label>
+                            <select id="idioma-sistema">
+                                <option value="pt-BR" selected>🇧🇷 Português (Brasil)</option>
+                                <option value="en-US">🇺🇸 English (US)</option>
+                                <option value="es-ES">🇪🇸 Español</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>📊 Dashboard</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="dashboard-auto-refresh" checked>
+                                Atualização automática
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="dashboard-intervalo">Intervalo (segundos):</label>
+                            <input type="number" id="dashboard-intervalo" value="30" min="10" max="300">
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔔 Notificações</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="notif-lancamentos" checked>
+                                Novos lançamentos
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="notif-esocial" checked>
+                                Eventos e-Social
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="notif-backup">
+                                Backups automáticos
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>💾 Armazenamento</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="cache-local" checked>
+                                Cache local ativo
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="cache-limite">Limite do cache (MB):</label>
+                            <input type="number" id="cache-limite" value="50" min="10" max="500">
+                        </div>
+                        <button class="btn" onclick="limparCache()">🗑️ Limpar Cache</button>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="salvarConfigSistema()">💾 Salvar Configurações</button>
+            </section>
+
+            <!-- Configurações de Usuários -->
+            <section id="config-usuarios" class="section">
+                <h2>👥 Gerenciar Usuários</h2>
+                
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <button class="btn" onclick="abrirModalNovoUsuario()">➕ Novo Usuário</button>
+                    <button class="btn" onclick="exportarUsuarios()">📤 Exportar Lista</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Perfil</th>
+                                <th>Último Acesso</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-tbody">
+                            <tr>
+                                <td>Administrador</td>
+                                <td>admin@empresaexemplo.com.br</td>
+                                <td><span class="status admin">👑 Admin</span></td>
+                                <td>Agora</td>
+                                <td><span class="status ativo">🟢 Ativo</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="editarUsuario(1)">✏️</button>
+                                    <button class="btn-action" onclick="bloquearUsuario(1)" disabled>🔒</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>João Silva</td>
+                                <td>joao@empresaexemplo.com.br</td>
+                                <td><span class="status usuario">👤 Usuário</span></td>
+                                <td>Hoje 14:30</td>
+                                <td><span class="status ativo">🟢 Ativo</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="editarUsuario(2)">✏️</button>
+                                    <button class="btn-action" onclick="bloquearUsuario(2)">🔒</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria Santos</td>
+                                <td>maria@empresaexemplo.com.br</td>
+                                <td><span class="status contador">📊 Contador</span></td>
+                                <td>Ontem 18:15</td>
+                                <td><span class="status bloqueado">🔴 Bloqueado</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="editarUsuario(3)">✏️</button>
+                                    <button class="btn-action" onclick="desbloquearUsuario(3)">🔓</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Backup & Dados -->
+            <section id="config-backup" class="section">
+                <h2>💾 Backup & Gestão de Dados</h2>
+                
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>🔄 Backup Automático</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="backup-automatico" checked>
+                                Ativar backup automático
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="backup-frequencia">Frequência:</label>
+                            <select id="backup-frequencia">
+                                <option value="diario" selected>📅 Diário</option>
+                                <option value="semanal">📆 Semanal</option>
+                                <option value="mensal">🗓️ Mensal</option>
+                            </select>
+                        </div>
+                        <div class="value">Último backup: Hoje 08:00</div>
+                        <button class="btn" onclick="executarBackup()">💾 Backup Agora</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>📥 Importar/Exportar</h3>
+                        <button class="btn" onclick="exportarDados()" style="margin-bottom: 10px;">📤 Exportar Dados</button>
+                        <button class="btn" onclick="importarDados()" style="margin-bottom: 10px;">📥 Importar Dados</button>
+                        <input type="file" id="arquivo-importacao" style="display: none;" accept=".json,.csv">
+                    </div>
+
+                    <div class="card">
+                        <h3>🗑️ Limpeza</h3>
+                        <div class="value">Logs: 156 registros (2.3 MB)</div>
+                        <div class="value">Cache: 23.7 MB</div>
+                        <button class="btn btn-danger" onclick="limparLogs()">🗑️ Limpar Logs</button>
+                        <button class="btn" onclick="limparCache()">🧹 Limpar Cache</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>📊 Estatísticas</h3>
+                        <div class="value">Total de lançamentos: 1,247</div>
+                        <div class="value">Funcionários ativos: 8</div>
+                        <div class="value">Eventos e-Social: 156</div>
+                        <div class="value">Espaço usado: 15.2 MB</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuração do Plano de Contas -->
+            <section id="config-contas" class="section">
+                <h2>🏦 Configuração do Plano de Contas</h2>
+                
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <button class="btn" onclick="abrirModalNovaConta()">➕ Nova Conta</button>
+                    <button class="btn" onclick="importarPlanoContas()">📥 Importar Plano</button>
+                    <button class="btn" onclick="exportarPlanoContas()">📤 Exportar Plano</button>
+                    <button class="btn" onclick="restaurarPlanoDefault()">🔄 Restaurar Padrão</button>
+                </div>
+
+                <div class="dashboard-cards" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <h3>📊 Resumo das Contas</h3>
+                        <div class="value" id="total-contas">0</div>
+                        <small>Total de contas</small>
+                    </div>
+                    <div class="card">
+                        <h3>💰 Contas Ativas</h3>
+                        <div class="value" id="contas-ativas">0</div>
+                        <small>Em uso no sistema</small>
+                    </div>
+                    <div class="card">
+                        <h3>🔒 Contas Inativas</h3>
+                        <div class="value" id="contas-inativas">0</div>
+                        <small>Desabilitadas</small>
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label for="filtro-tipo-conta">Filtrar por tipo:</label>
+                        <select id="filtro-tipo-conta" onchange="filtrarContas()">
+                            <option value="">Todos os tipos</option>
+                            <option value="Ativo">Ativo</option>
+                            <option value="Passivo">Passivo</option>
+                            <option value="Receita">Receita</option>
+                            <option value="Despesa">Despesa</option>
+                            <option value="Patrimônio">Patrimônio</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="buscar-conta">Buscar conta:</label>
+                        <input type="text" id="buscar-conta" placeholder="Digite código ou nome..." onkeyup="filtrarContas()">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nome da Conta</th>
+                                <th>Tipo</th>
+                                <th>Natureza</th>
+                                <th>Status</th>
+                                <th>Saldo Atual</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="config-contas-tbody">
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Modal Nova Conta -->
+            <div id="modal-nova-conta" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>➕ Nova Conta Contábil</h3>
+                        <button class="modal-close" onclick="fecharModalNovaConta()">✕</button>
+                    </div>
+                    <form id="form-nova-conta" onsubmit="salvarNovaConta(event)">
+                        <div class="form-group">
+                            <label for="nova-conta-codigo">Código da Conta:</label>
+                            <input type="text" id="nova-conta-codigo" placeholder="Ex: 1.1.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nova-conta-nome">Nome da Conta:</label>
+                            <input type="text" id="nova-conta-nome" placeholder="Ex: Caixa" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nova-conta-tipo">Tipo:</label>
+                                <select id="nova-conta-tipo" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Ativo">Ativo</option>
+                                    <option value="Passivo">Passivo</option>
+                                    <option value="Receita">Receita</option>
+                                    <option value="Despesa">Despesa</option>
+                                    <option value="Patrimônio">Patrimônio</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nova-conta-natureza">Natureza:</label>
+                                <select id="nova-conta-natureza" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Devedora">Devedora</option>
+                                    <option value="Credora">Credora</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nova-conta-descricao">Descrição (opcional):</label>
+                            <textarea id="nova-conta-descricao" placeholder="Descrição detalhada da conta..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="nova-conta-ativa" checked>
+                                Conta ativa
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="fecharModalNovaConta()">Cancelar</button>
+                            <button type="submit" class="btn">💾 Salvar Conta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </main>
     </div>
 
     <script>
+        // ============ FUNÇÕES DO MENU MOBILE ============
+
+        // Abrir/fechar menu mobile
+        function toggleMobileMenu() {
+            console.log('toggleMobileMenu called');
+            
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.querySelector('.mobile-menu-overlay') || document.getElementById('mobileMenuOverlay');
+            
+            console.log('Elements found:', { mobileMenu: !!mobileMenu, overlay: !!overlay });
+            
+            if (mobileMenu && overlay) {
+                const isActive = mobileMenu.classList.contains('active');
+                console.log('Current state:', isActive ? 'active' : 'inactive');
+                
+                if (isActive) {
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                } else {
+                    mobileMenu.classList.add('active');
+                    overlay.classList.add('active');
+                }
+                
+                console.log('New state:', mobileMenu.classList.contains('active') ? 'active' : 'inactive');
+            } else {
+                console.error('Menu elements not found!');
+                alert('Erro: elementos do menu não encontrados');
+            }
+        }
+
+        // Fechar menu mobile
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.querySelector('.mobile-menu-overlay');
+            
+            if (mobileMenu && overlay) {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        // Event listeners para o menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fechar menu ao pressionar ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+
+            // Debug: verificar se elementos existem
+            console.log('Menu elements:', {
+                mobileMenu: !!document.getElementById('mobileMenu'),
+                overlay: !!document.querySelector('.mobile-menu-overlay'),
+                hamburgerButton: !!document.querySelector('.hamburger-menu')
+            });
+        });
+
         // Função para carregar dados do localStorage
         function carregarDadosLocalStorage() {
             const dados = localStorage.getItem('sistemaContabilidade');
@@ -2226,7 +3110,23 @@
                     departamento: 'financeiro',
                     salarioBruto: 8500.00,
                     dataAdmissao: '2022-03-15',
-                    ativo: true
+                    ativo: true,
+                    // Dados e-Social
+                    pis: '12345678901',
+                    ctps: '1234567/001',
+                    rg: '12.345.678-9',
+                    dataNascimento: '1985-05-10',
+                    estadoCivil: 'casado',
+                    endereco: {
+                        cep: '01234-567',
+                        logradouro: 'Rua das Flores, 123',
+                        bairro: 'Centro',
+                        cidade: 'São Paulo',
+                        uf: 'SP'
+                    },
+                    categoriaESocial: '101', // Empregado geral
+                    matricula: 'EMP001',
+                    vinculo: 'clt'
                 },
                 {
                     id: 2,
@@ -2236,7 +3136,23 @@
                     departamento: 'financeiro',
                     salarioBruto: 6200.00,
                     dataAdmissao: '2023-01-10',
-                    ativo: true
+                    ativo: true,
+                    // Dados e-Social
+                    pis: '98765432109',
+                    ctps: '9876543/002',
+                    rg: '98.765.432-1',
+                    dataNascimento: '1990-08-22',
+                    estadoCivil: 'solteira',
+                    endereco: {
+                        cep: '02345-678',
+                        logradouro: 'Av. Paulista, 456',
+                        bairro: 'Bela Vista',
+                        cidade: 'São Paulo',
+                        uf: 'SP'
+                    },
+                    categoriaESocial: '101', // Empregado geral
+                    matricula: 'EMP002',
+                    vinculo: 'clt'
                 },
                 {
                     id: 3,
@@ -2492,6 +3408,8 @@
                 carregarFolhaPagamento();
             } else if (sectionName === 'esocial') {
                 carregarESocial();
+            } else if (sectionName === 'config-contas') {
+                carregarConfigContas();
             }
         }
 
@@ -2625,66 +3543,370 @@
 
             // Desenhar gráfico simples
             desenharGrafico();
+            
+            // Inicializar interatividade do gráfico apenas uma vez
+            if (!window.graficoInteratividadeIniciada) {
+                setTimeout(() => {
+                    adicionarInteratividadeGrafico();
+                    window.graficoInteratividadeIniciada = true;
+                }, 100);
+            }
         }
 
-        // Desenhar gráfico de fluxo de caixa
+        // Desenhar gráfico de fluxo de caixa aprimorado
         function desenharGrafico() {
             const canvas = document.getElementById('fluxoCaixaChart');
             const ctx = canvas.getContext('2d');
             
+            // Ajustar canvas para alta resolução
+            const rect = canvas.getBoundingClientRect();
+            const devicePixelRatio = window.devicePixelRatio || 1;
+            canvas.width = rect.width * devicePixelRatio;
+            canvas.height = rect.height * devicePixelRatio;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            
             // Limpar canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, rect.width, rect.height);
             
-            // Dados simulados para o gráfico
-            const meses = ['Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'];
-            const valores = [28000, 32000, 29000, 35000, 41000, 45680];
+            // Calcular dados baseados nos lançamentos reais
+            const dadosFluxo = calcularDadosFluxo();
+            const { meses, receitas, despesas, saldos } = dadosFluxo;
             
-            const padding = 50;
-            const chartWidth = canvas.width - 2 * padding;
-            const chartHeight = canvas.height - 2 * padding;
-            const maxValue = Math.max(...valores);
+            // Armazenar dados globalmente para interatividade
+            dadosGraficoGlobal = dadosFluxo;
+            
+            const padding = 60;
+            const chartWidth = rect.width - 2 * padding;
+            const chartHeight = rect.height - 2 * padding;
+            const maxValue = Math.max(...saldos, ...receitas, ...despesas);
+            const minValue = Math.min(...saldos, 0);
+            const valueRange = maxValue - minValue;
+            
+            // Função para calcular posição Y
+            function getY(value) {
+                return rect.height - padding - ((value - minValue) / valueRange * chartHeight);
+            }
+            
+            // Desenhar grid
+            ctx.strokeStyle = 'rgba(200, 200, 200, 0.3)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (i * chartHeight / 5);
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(rect.width - padding, y);
+                ctx.stroke();
+            }
             
             // Desenhar eixos
-            ctx.strokeStyle = '#ccc';
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.moveTo(padding, padding);
-            ctx.lineTo(padding, canvas.height - padding);
-            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.lineTo(padding, rect.height - padding);
+            ctx.lineTo(rect.width - padding, rect.height - padding);
             ctx.stroke();
             
-            // Desenhar linha do gráfico
+            // Área de receitas (verde)
+            ctx.fillStyle = 'rgba(40, 167, 69, 0.2)';
+            ctx.beginPath();
+            ctx.moveTo(padding, getY(0));
+            receitas.forEach((valor, index) => {
+                const x = padding + (index * chartWidth / (receitas.length - 1));
+                ctx.lineTo(x, getY(valor));
+            });
+            ctx.lineTo(rect.width - padding, getY(0));
+            ctx.closePath();
+            ctx.fill();
+            
+            // Área de despesas (vermelho)
+            ctx.fillStyle = 'rgba(220, 53, 69, 0.2)';
+            ctx.beginPath();
+            ctx.moveTo(padding, getY(0));
+            despesas.forEach((valor, index) => {
+                const x = padding + (index * chartWidth / (despesas.length - 1));
+                ctx.lineTo(x, getY(-Math.abs(valor)));
+            });
+            ctx.lineTo(rect.width - padding, getY(0));
+            ctx.closePath();
+            ctx.fill();
+            
+            // Linha de saldo (azul)
             ctx.strokeStyle = '#667eea';
             ctx.lineWidth = 3;
             ctx.beginPath();
-            
-            valores.forEach((valor, index) => {
-                const x = padding + (index * chartWidth / (valores.length - 1));
-                const y = canvas.height - padding - (valor / maxValue * chartHeight);
-                
-                if (index === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
-                }
-                
-                // Desenhar pontos
-                ctx.fillStyle = '#667eea';
-                ctx.beginPath();
-                ctx.arc(x, y, 4, 0, 2 * Math.PI);
-                ctx.fill();
+            saldos.forEach((valor, index) => {
+                const x = padding + (index * chartWidth / (saldos.length - 1));
+                const y = getY(valor);
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
             });
             ctx.stroke();
             
-            // Adicionar labels dos meses
+            // Pontos de saldo com valores
+            ctx.fillStyle = '#667eea';
+            ctx.font = '11px Arial';
+            ctx.textAlign = 'center';
+            saldos.forEach((valor, index) => {
+                const x = padding + (index * chartWidth / (saldos.length - 1));
+                const y = getY(valor);
+                
+                // Ponto
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Valor acima do ponto
+                ctx.fillStyle = '#333';
+                const valorFormatado = new Intl.NumberFormat('pt-BR', { 
+                    style: 'currency', 
+                    currency: 'BRL', 
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(valor);
+                ctx.fillText(valorFormatado, x, y - 15);
+                ctx.fillStyle = '#667eea';
+            });
+            
+            // Labels dos meses
             ctx.fillStyle = '#666';
             ctx.font = '12px Arial';
             ctx.textAlign = 'center';
             meses.forEach((mes, index) => {
-                const x = padding + (index * chartWidth / (valores.length - 1));
-                ctx.fillText(mes, x, canvas.height - padding + 20);
+                const x = padding + (index * chartWidth / (meses.length - 1));
+                ctx.fillText(mes, x, rect.height - padding + 20);
+            });
+            
+            // Legenda
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'left';
+            const legendY = 20;
+            
+            // Receitas
+            ctx.fillStyle = 'rgba(40, 167, 69, 0.8)';
+            ctx.fillRect(rect.width - 180, legendY, 15, 15);
+            ctx.fillStyle = '#333';
+            ctx.fillText('Receitas', rect.width - 160, legendY + 12);
+            
+            // Despesas
+            ctx.fillStyle = 'rgba(220, 53, 69, 0.8)';
+            ctx.fillRect(rect.width - 180, legendY + 25, 15, 15);
+            ctx.fillStyle = '#333';
+            ctx.fillText('Despesas', rect.width - 160, legendY + 37);
+            
+            // Saldo
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(rect.width - 180, legendY + 57);
+            ctx.lineTo(rect.width - 165, legendY + 57);
+            ctx.stroke();
+            ctx.fillStyle = '#333';
+            ctx.fillText('Saldo', rect.width - 160, legendY + 62);
+        }
+        
+        // Calcular dados reais do fluxo de caixa
+        function calcularDadosFluxo() {
+            const agora = new Date();
+            const meses = [];
+            const receitas = [];
+            const despesas = [];
+            const saldos = [];
+            
+            // Gerar últimos 6 meses
+            for (let i = 5; i >= 0; i--) {
+                const data = new Date(agora.getFullYear(), agora.getMonth() - i, 1);
+                const mesNome = data.toLocaleDateString('pt-BR', { month: 'short' });
+                meses.push(mesNome.charAt(0).toUpperCase() + mesNome.slice(1));
+                
+                const inicioMes = new Date(data.getFullYear(), data.getMonth(), 1);
+                const fimMes = new Date(data.getFullYear(), data.getMonth() + 1, 0);
+                
+                // Filtrar lançamentos do mês
+                const lancamentosMes = dadosCache.lancamentos.filter(l => {
+                    const dataLancamento = new Date(l.data);
+                    return dataLancamento >= inicioMes && dataLancamento <= fimMes;
+                });
+                
+                const receitasMes = lancamentosMes
+                    .filter(l => l.tipo === 'receita')
+                    .reduce((sum, l) => sum + l.valor, 0);
+                    
+                const despesasMes = lancamentosMes
+                    .filter(l => l.tipo === 'despesa')
+                    .reduce((sum, l) => sum + l.valor, 0);
+                
+                receitas.push(receitasMes);
+                despesas.push(despesasMes);
+                saldos.push(receitasMes - despesasMes);
+            }
+            
+            // Se não há dados reais, usar simulados
+            if (receitas.every(r => r === 0) && despesas.every(d => d === 0)) {
+                return {
+                    meses: ['Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'],
+                    receitas: [35000, 42000, 38000, 45000, 52000, 58000],
+                    despesas: [28000, 32000, 29000, 35000, 41000, 45000],
+                    saldos: [7000, 10000, 9000, 10000, 11000, 13000]
+                };
+            }
+            
+            return { meses, receitas, despesas, saldos };
+        }
+        
+        // Variável global para armazenar dados do gráfico
+        let dadosGraficoGlobal = null;
+        
+        // Adicionar interatividade ao gráfico
+        function adicionarInteratividadeGrafico() {
+            const canvas = document.getElementById('fluxoCaixaChart');
+            const tooltip = document.getElementById('chartTooltip');
+            
+            canvas.addEventListener('mousemove', function(event) {
+                if (!dadosGraficoGlobal) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                
+                const { meses, receitas, despesas, saldos } = dadosGraficoGlobal;
+                const padding = 60;
+                const chartWidth = rect.width - 2 * padding;
+                
+                // Encontrar ponto mais próximo
+                let pontoMaisProximo = -1;
+                let menorDistancia = Infinity;
+                
+                saldos.forEach((valor, index) => {
+                    const pontox = padding + (index * chartWidth / (saldos.length - 1));
+                    const distancia = Math.abs(x - pontox);
+                    
+                    if (distancia < menorDistancia && distancia < 30) {
+                        menorDistancia = distancia;
+                        pontoMaisProximo = index;
+                    }
+                });
+                
+                if (pontoMaisProximo >= 0) {
+                    const receita = receitas[pontoMaisProximo];
+                    const despesa = despesas[pontoMaisProximo];
+                    const saldo = saldos[pontoMaisProximo];
+                    const mes = meses[pontoMaisProximo];
+                    
+                    const receitaFormatada = new Intl.NumberFormat('pt-BR', { 
+                        style: 'currency', currency: 'BRL' 
+                    }).format(receita);
+                    const despesaFormatada = new Intl.NumberFormat('pt-BR', { 
+                        style: 'currency', currency: 'BRL' 
+                    }).format(despesa);
+                    const saldoFormatado = new Intl.NumberFormat('pt-BR', { 
+                        style: 'currency', currency: 'BRL' 
+                    }).format(saldo);
+                    
+                    tooltip.innerHTML = `
+                        <strong>${mes}</strong><br>
+                        <span style="color: #28a745;">Receitas: ${receitaFormatada}</span><br>
+                        <span style="color: #dc3545;">Despesas: ${despesaFormatada}</span><br>
+                        <span style="color: #667eea;"><strong>Saldo: ${saldoFormatado}</strong></span>
+                    `;
+                    
+                    tooltip.style.left = (event.clientX - rect.left + 15) + 'px';
+                    tooltip.style.top = (event.clientY - rect.top - 15) + 'px';
+                    tooltip.style.display = 'block';
+                } else {
+                    tooltip.style.display = 'none';
+                }
+            });
+            
+            canvas.addEventListener('mouseleave', function() {
+                tooltip.style.display = 'none';
+            });
+            
+            canvas.addEventListener('click', function(event) {
+                if (!dadosGraficoGlobal) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                
+                const { meses, receitas, despesas, saldos } = dadosGraficoGlobal;
+                const padding = 60;
+                const chartWidth = rect.width - 2 * padding;
+                
+                // Encontrar ponto clicado
+                saldos.forEach((valor, index) => {
+                    const pontox = padding + (index * chartWidth / (saldos.length - 1));
+                    
+                    if (Math.abs(x - pontox) < 30) {
+                        const mes = meses[index];
+                        const receita = receitas[index];
+                        const despesa = despesas[index];
+                        const saldo = saldos[index];
+                        
+                        alert(`Detalhes de ${mes}:\n\n` +
+                              `Receitas: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(receita)}\n` +
+                              `Despesas: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(despesa)}\n` +
+                              `Saldo: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(saldo)}`);
+                    }
+                });
             });
         }
+        
+        // Responsividade para redimensionamento
+        window.addEventListener('resize', function() {
+            if (document.getElementById('dashboard').classList.contains('active')) {
+                setTimeout(desenharGrafico, 100);
+            }
+        });
+
+        // Posicionamento inteligente dos dropdowns
+        function posicionarDropdown(dropdown) {
+            const menu = dropdown.querySelector('.dropdown-menu');
+            const btn = dropdown.querySelector('.nav-btn');
+            
+            if (!menu || !btn) return;
+            
+            const btnRect = btn.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const menuWidth = 220;
+            const menuHeight = menu.scrollHeight || 200;
+            
+            let left = btnRect.left;
+            let top = btnRect.bottom + 8;
+            
+            // Ajustar se sair da tela horizontalmente
+            if (left + menuWidth > viewportWidth) {
+                left = btnRect.right - menuWidth;
+            }
+            
+            // Ajustar se sair da tela verticalmente
+            if (top + menuHeight > viewportHeight) {
+                top = btnRect.top - menuHeight - 8;
+            }
+            
+            menu.style.left = Math.max(10, left) + 'px';
+            menu.style.top = Math.max(10, top) + 'px';
+        }
+
+        // Adicionar eventos aos dropdowns
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.nav-dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    posicionarDropdown(this);
+                });
+            });
+            
+            // Reposicionar dropdowns ao redimensionar janela
+            window.addEventListener('resize', function() {
+                dropdowns.forEach(dropdown => {
+                    if (dropdown.matches(':hover')) {
+                        posicionarDropdown(dropdown);
+                    }
+                });
+            });
+        });
 
         // Gerar relatório DRE
         function gerarRelatorio() {
@@ -3531,6 +4753,1499 @@
             alert('Folha de pagamento processada com sucesso!');
         }
 
+        // ============ FUNÇÕES E-SOCIAL ============
+
+        // Alternar entre abas do e-Social
+        function showEsocialTab(tabName) {
+            // Remover classe active de todas as abas e botões
+            document.querySelectorAll('.esocial-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Adicionar classe active na aba e botão selecionados
+            document.getElementById(`esocial-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
+
+            // Carregar dados específicos da aba
+            if (tabName === 'eventos') {
+                carregarEventosESocial();
+            } else if (tabName === 'trabalhadores') {
+                carregarTrabalhadoresESocial();
+            } else if (tabName === 'remuneracao') {
+                carregarRemuneracaoESocial();
+            } else if (tabName === 'transmissao') {
+                carregarTransmissaoESocial();
+            }
+        }
+
+        // Carregar dados principais do e-Social
+        function carregarESocial() {
+            atualizarDashboardESocial();
+            carregarEventosESocial();
+        }
+
+        // Atualizar dashboard do e-Social
+        function atualizarDashboardESocial() {
+            // Verificar se os dados existem
+            if (!dadosCache || !dadosCache.eventosESocial || !Array.isArray(dadosCache.eventosESocial)) {
+                console.warn('Dados do e-Social não encontrados, inicializando...');
+                if (!dadosCache.eventosESocial) {
+                    dadosCache.eventosESocial = [];
+                }
+                return;
+            }
+
+            const eventos = dadosCache.eventosESocial;
+            
+            const enviados = eventos.filter(e => e.status === 'processado').length;
+            const pendentes = eventos.filter(e => e.status === 'pendente').length;
+            const erros = eventos.filter(e => e.status === 'erro').length;
+            const processados = enviados;
+
+            // Verificar se os elementos existem antes de atualizar
+            const elementoEnviados = document.getElementById('esocial-enviados');
+            const elementoPendentes = document.getElementById('esocial-pendentes');
+            const elementoErros = document.getElementById('esocial-erros');
+            const elementoProcessados = document.getElementById('esocial-processados');
+
+            if (elementoEnviados) elementoEnviados.textContent = enviados;
+            if (elementoPendentes) elementoPendentes.textContent = pendentes;
+            if (elementoErros) elementoErros.textContent = erros;
+            if (elementoProcessados) elementoProcessados.textContent = processados;
+        }
+
+        // Carregar lista de eventos e-Social
+        function carregarEventosESocial() {
+            const tbody = document.getElementById('eventos-esocial-tbody');
+            if (!tbody) return;
+
+            // Verificar se os dados existem
+            if (!dadosCache || !dadosCache.eventosESocial || !Array.isArray(dadosCache.eventosESocial)) {
+                tbody.innerHTML = '<tr><td colspan="7">Nenhum evento encontrado</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            dadosCache.eventosESocial.forEach(evento => {
+                const row = document.createElement('tr');
+                
+                const statusClass = evento.status === 'processado' ? 'success' : 
+                                   evento.status === 'erro' ? 'error' : 'warning';
+                
+                const statusText = evento.status === 'processado' ? '✅ Processado' :
+                                  evento.status === 'erro' ? '❌ Erro' : '⏳ Pendente';
+
+                row.innerHTML = `
+                    <td>${evento.tipo}</td>
+                    <td>${evento.funcionarioNome}</td>
+                    <td>${evento.periodo}</td>
+                    <td><span class="status ${statusClass}">${statusText}</span></td>
+                    <td>${evento.protocolo || '-'}</td>
+                    <td>${new Date(evento.dataCriacao).toLocaleString('pt-BR')}</td>
+                    <td>
+                        <button class="btn-action" onclick="visualizarEvento(${evento.id})">👁️</button>
+                        <button class="btn-action" onclick="reenviarEvento(${evento.id})" ${evento.status === 'processado' ? 'disabled' : ''}>🔄</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carregar lista de trabalhadores para e-Social
+        function carregarTrabalhadoresESocial() {
+            const tbody = document.getElementById('trabalhadores-esocial-tbody');
+            if (!tbody) return;
+
+            // Verificar se os dados existem
+            if (!dadosCache || !dadosCache.funcionarios || !Array.isArray(dadosCache.funcionarios)) {
+                tbody.innerHTML = '<tr><td colspan="6">Nenhum funcionário encontrado</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            dadosCache.funcionarios.forEach(func => {
+                const row = document.createElement('tr');
+                
+                // Status baseado em eventos existentes
+                const eventosFunc = (dadosCache.eventosESocial || []).filter(e => e.funcionarioId === func.id);
+                const temS2200 = eventosFunc.some(e => e.tipo === 'S-2200');
+                const status = temS2200 ? '✅ Cadastrado' : '⚠️ Pendente';
+
+                row.innerHTML = `
+                    <td>${func.nome}</td>
+                    <td>${func.cpf}</td>
+                    <td>${func.cargo}</td>
+                    <td>${new Date(func.dataAdmissao).toLocaleDateString('pt-BR')}</td>
+                    <td><span class="status ${temS2200 ? 'success' : 'warning'}">${status}</span></td>
+                    <td>
+                        <button class="btn-action" onclick="gerarS2200(${func.id})" ${temS2200 ? 'disabled' : ''}>📝 S-2200</button>
+                        <button class="btn-action" onclick="editarTrabalhadorESocial(${func.id})">✏️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carregar dados de remuneração e-Social
+        function carregarRemuneracaoESocial() {
+            const tbody = document.getElementById('remuneracao-esocial-tbody');
+            if (!tbody) return;
+
+            // Verificar se os dados existem
+            if (!dadosCache || !dadosCache.remuneracaoESocial || !Array.isArray(dadosCache.remuneracaoESocial)) {
+                tbody.innerHTML = '<tr><td colspan="7">Nenhuma remuneração encontrada</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            dadosCache.remuneracaoESocial.forEach(rem => {
+                const row = document.createElement('tr');
+                
+                const statusClass = rem.statusS1200 === 'enviado' ? 'success' : 
+                                   rem.statusS1200 === 'erro' ? 'error' : 'warning';
+                
+                const statusText = rem.statusS1200 === 'enviado' ? '✅ Enviado' :
+                                  rem.statusS1200 === 'erro' ? '❌ Erro' : '⏳ Pendente';
+
+                row.innerHTML = `
+                    <td>${rem.funcionarioNome}</td>
+                    <td>${rem.periodo}</td>
+                    <td>${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(rem.salarioBase)}</td>
+                    <td>${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(rem.proventos)}</td>
+                    <td>${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(rem.descontos)}</td>
+                    <td><span class="status ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="btn-action" onclick="gerarS1200(${rem.funcionarioId}, '${rem.periodo}')">📤 S-1200</button>
+                        <button class="btn-action" onclick="visualizarRemuneracao(${rem.id})">👁️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carregar dados de transmissão
+        function carregarTransmissaoESocial() {
+            atualizarDashboardTransmissao();
+        }
+
+        // Atualizar dashboard de transmissão
+        function atualizarDashboardTransmissao() {
+            const eventos = dadosCache.eventosESocial;
+            const hoje = new Date().toISOString().split('T')[0];
+            
+            // Calcular métricas
+            const filaTransmissao = eventos.filter(e => e.status === 'pendente').length;
+            const processadosHoje = eventos.filter(e => 
+                e.status === 'processado' && 
+                new Date(e.dataCriacao).toISOString().split('T')[0] === hoje
+            ).length;
+            
+            // Atualizar elementos
+            if (document.getElementById('fila-transmissao')) {
+                document.getElementById('fila-transmissao').textContent = filaTransmissao;
+            }
+            if (document.getElementById('processados-hoje')) {
+                document.getElementById('processados-hoje').textContent = processadosHoje;
+            }
+        }
+
+        // Funções auxiliares para formulários
+        function mostrarFormularioEvento() {
+            const tipoEvento = document.getElementById('evento-tipo').value;
+            
+            // Ocultar todos os formulários
+            document.querySelectorAll('.evento-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            
+            // Mostrar formulário correspondente
+            if (tipoEvento) {
+                const formId = `form-${tipoEvento.toLowerCase()}`;
+                const form = document.getElementById(formId);
+                if (form) {
+                    form.style.display = 'block';
+                    carregarOpcoesFuncionarios(tipoEvento);
+                }
+            }
+        }
+
+        function carregarOpcoesFuncionarios(tipoEvento) {
+            const funcionariosAtivos = dadosCache.funcionarios.filter(f => f.ativo);
+            const selectId = `${tipoEvento.toLowerCase()}-funcionario`;
+            const select = document.getElementById(selectId);
+            
+            if (select) {
+                select.innerHTML = '<option value="">Selecione o funcionário...</option>';
+                funcionariosAtivos.forEach(func => {
+                    const option = document.createElement('option');
+                    option.value = func.id;
+                    option.textContent = func.nome;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function gerarEventoS1200() {
+            const funcionarioId = parseInt(document.getElementById('s1200-funcionario').value);
+            const periodo = document.getElementById('evento-periodo').value;
+            
+            if (!funcionarioId || !periodo) {
+                alert('Selecione o funcionário e o período!');
+                return;
+            }
+            
+            gerarS1200(funcionarioId, periodo);
+        }
+
+        function gerarEventoS2200() {
+            const funcionarioId = parseInt(document.getElementById('s2200-funcionario').value);
+            
+            if (!funcionarioId) {
+                alert('Selecione o funcionário!');
+                return;
+            }
+            
+            gerarS2200(funcionarioId);
+        }
+
+        function visualizarRemuneracao(remuneracaoId) {
+            const remuneracao = dadosCache.remuneracaoESocial.find(r => r.id === remuneracaoId);
+            if (!remuneracao) {
+                alert('Remuneração não encontrada!');
+                return;
+            }
+
+            const liquido = remuneracao.proventos - remuneracao.descontos;
+            const detalhes = `
+DETALHES DA REMUNERAÇÃO
+==========================================
+Funcionário: ${remuneracao.funcionarioNome}
+Período: ${remuneracao.periodo}
+
+💰 VALORES:
+Salário Base: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(remuneracao.salarioBase)}
+Proventos: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(remuneracao.proventos)}
+Descontos: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(remuneracao.descontos)}
+Líquido: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(liquido)}
+
+📋 STATUS:
+S-1200: ${remuneracao.statusS1200}
+            `;
+
+            alert(detalhes);
+        }
+
+        function editarTrabalhadorESocial(funcionarioId) {
+            // Placeholder para edição de trabalhador
+            alert('Funcionalidade de edição em desenvolvimento!\nEm breve será possível editar os dados do trabalhador diretamente na interface e-Social.');
+        }
+
+        // Gerar evento S-1200 (Remuneração)
+        function gerarS1200(funcionarioId, periodo) {
+            const funcionario = dadosCache.funcionarios.find(f => f.id === funcionarioId);
+            if (!funcionario) {
+                alert('Funcionário não encontrado!');
+                return;
+            }
+
+            // Simular geração do evento S-1200
+            const novoEvento = {
+                id: dadosCache.eventosESocial.length + 1,
+                tipo: 'S-1200',
+                funcionarioId: funcionarioId,
+                funcionarioNome: funcionario.nome,
+                periodo: periodo || '2024-08',
+                status: 'pendente',
+                dataCriacao: new Date().toISOString(),
+                protocolo: null
+            };
+
+            dadosCache.eventosESocial.push(novoEvento);
+            
+            // Atualizar exibições
+            carregarEventosESocial();
+            atualizarDashboardESocial();
+            
+            alert(`Evento S-1200 gerado para ${funcionario.nome}!`);
+        }
+
+        // Gerar evento S-2200 (Admissão)
+        function gerarS2200(funcionarioId) {
+            const funcionario = dadosCache.funcionarios.find(f => f.id === funcionarioId);
+            if (!funcionario) {
+                alert('Funcionário não encontrado!');
+                return;
+            }
+
+            // Verificar se já existe S-2200 para este funcionário
+            const jaExiste = dadosCache.eventosESocial.some(e => 
+                e.tipo === 'S-2200' && e.funcionarioId === funcionarioId
+            );
+
+            if (jaExiste) {
+                alert('Evento S-2200 já existe para este funcionário!');
+                return;
+            }
+
+            // Simular geração do evento S-2200
+            const novoEvento = {
+                id: dadosCache.eventosESocial.length + 1,
+                tipo: 'S-2200',
+                funcionarioId: funcionarioId,
+                funcionarioNome: funcionario.nome,
+                periodo: new Date(funcionario.dataAdmissao).toISOString().slice(0, 7),
+                status: 'pendente',
+                dataCriacao: new Date().toISOString(),
+                protocolo: null
+            };
+
+            dadosCache.eventosESocial.push(novoEvento);
+            
+            // Atualizar exibições
+            carregarEventosESocial();
+            carregarTrabalhadoresESocial();
+            atualizarDashboardESocial();
+            
+            alert(`Evento S-2200 (Admissão) gerado para ${funcionario.nome}!`);
+        }
+
+        // Visualizar detalhes de um evento
+        function visualizarEvento(eventoId) {
+            const evento = dadosCache.eventosESocial.find(e => e.id === eventoId);
+            if (!evento) {
+                alert('Evento não encontrado!');
+                return;
+            }
+
+            const detalhes = `
+                Tipo: ${evento.tipo}
+                Funcionário: ${evento.funcionarioNome}
+                Período: ${evento.periodo}
+                Status: ${evento.status}
+                Protocolo: ${evento.protocolo || 'Não processado'}
+                Data: ${new Date(evento.dataCriacao).toLocaleString('pt-BR')}
+            `;
+
+            alert(detalhes);
+        }
+
+        // Reenviar evento com erro
+        function reenviarEvento(eventoId) {
+            const evento = dadosCache.eventosESocial.find(e => e.id === eventoId);
+            if (!evento) {
+                alert('Evento não encontrado!');
+                return;
+            }
+
+            if (evento.status === 'processado') {
+                alert('Evento já foi processado com sucesso!');
+                return;
+            }
+
+            // Simular reenvio
+            evento.status = 'processado';
+            evento.protocolo = `ES${Date.now()}`;
+            
+            carregarEventosESocial();
+            atualizarDashboardESocial();
+            
+            alert(`Evento ${evento.tipo} reenviado com sucesso!`);
+        }
+
+        // Processar remuneração mensal automaticamente
+        function processarRemuneracaoMensal() {
+            const periodo = document.getElementById('rem-periodo').value;
+            if (!periodo) {
+                alert('Selecione o período!');
+                return;
+            }
+
+            const funcionariosAtivos = dadosCache.funcionarios.filter(f => f.ativo);
+            let eventosGerados = 0;
+
+            funcionariosAtivos.forEach(funcionario => {
+                // Verificar se já existe remuneração para este funcionário no período
+                const jaExiste = dadosCache.remuneracaoESocial.some(r => 
+                    r.funcionarioId === funcionario.id && r.periodo === periodo
+                );
+
+                if (!jaExiste) {
+                    // Calcular remuneração
+                    const salarioBase = funcionario.salarioBruto;
+                    const proventos = salarioBase;
+                    const inss = Math.min(salarioBase * 0.11, 713.10); // INSS máximo em 2024
+                    const irrf = calcularIRRF(salarioBase, inss);
+                    const descontos = inss + irrf;
+
+                    // Adicionar remuneração
+                    const novaRemuneracao = {
+                        id: dadosCache.remuneracaoESocial.length + 1,
+                        funcionarioId: funcionario.id,
+                        funcionarioNome: funcionario.nome,
+                        periodo: periodo,
+                        salarioBase: salarioBase,
+                        proventos: proventos,
+                        descontos: descontos,
+                        statusS1200: 'pendente'
+                    };
+
+                    dadosCache.remuneracaoESocial.push(novaRemuneracao);
+
+                    // Gerar evento S-1200 automaticamente
+                    const novoEvento = {
+                        id: dadosCache.eventosESocial.length + 1,
+                        tipo: 'S-1200',
+                        funcionarioId: funcionario.id,
+                        funcionarioNome: funcionario.nome,
+                        periodo: periodo,
+                        status: 'pendente',
+                        dataCriacao: new Date().toISOString(),
+                        protocolo: null,
+                        dados: {
+                            salarioBase: salarioBase,
+                            proventos: proventos,
+                            descontos: descontos,
+                            inss: inss,
+                            irrf: irrf
+                        }
+                    };
+
+                    dadosCache.eventosESocial.push(novoEvento);
+                    eventosGerados++;
+                }
+            });
+
+            // Atualizar exibições
+            carregarRemuneracaoESocial();
+            carregarEventosESocial();
+            atualizarDashboardESocial();
+
+            alert(`Remuneração mensal processada!\n${eventosGerados} eventos S-1200 gerados para o período ${periodo}.`);
+        }
+
+        // Calcular IRRF
+        function calcularIRRF(salarioBruto, inss) {
+            const baseCalculo = salarioBruto - inss - 189.59; // Dedução por dependente padrão
+            
+            if (baseCalculo <= 1903.98) return 0;
+            if (baseCalculo <= 2826.65) return (baseCalculo * 0.075) - 142.80;
+            if (baseCalculo <= 3751.05) return (baseCalculo * 0.15) - 354.80;
+            if (baseCalculo <= 4664.68) return (baseCalculo * 0.225) - 636.13;
+            return (baseCalculo * 0.275) - 869.36;
+        }
+
+        // Transmitir eventos pendentes
+        function transmitirEventos() {
+            const eventosPendentes = dadosCache.eventosESocial.filter(e => e.status === 'pendente');
+            
+            if (eventosPendentes.length === 0) {
+                alert('Não há eventos pendentes para transmissão!');
+                return;
+            }
+
+            // Simular transmissão
+            let sucessos = 0;
+            let erros = 0;
+
+            eventosPendentes.forEach(evento => {
+                // Simular sucesso/erro (80% sucesso)
+                if (Math.random() > 0.2) {
+                    evento.status = 'processado';
+                    evento.protocolo = `ES${Date.now()}_${evento.id}`;
+                    sucessos++;
+                    
+                    // Atualizar status da remuneração se for S-1200
+                    if (evento.tipo === 'S-1200') {
+                        const remuneracao = dadosCache.remuneracaoESocial.find(r => 
+                            r.funcionarioId === evento.funcionarioId && r.periodo === evento.periodo
+                        );
+                        if (remuneracao) {
+                            remuneracao.statusS1200 = 'enviado';
+                        }
+                    }
+                } else {
+                    evento.status = 'erro';
+                    erros++;
+                }
+            });
+
+            // Atualizar exibições
+            carregarEventosESocial();
+            carregarRemuneracaoESocial();
+            atualizarDashboardESocial();
+            carregarTransmissaoESocial();
+
+            // Mostrar resultado
+            document.getElementById('transmissao-resultado').style.display = 'block';
+            document.getElementById('transmissao-log').innerHTML = `
+                <div style="background: #e8f5e8; padding: 15px; border-radius: 5px; margin-bottom: 10px;">
+                    <strong>✅ Sucessos: ${sucessos}</strong>
+                </div>
+                <div style="background: #ffe8e8; padding: 15px; border-radius: 5px;">
+                    <strong>❌ Erros: ${erros}</strong>
+                </div>
+                <p><strong>Total processado:</strong> ${sucessos + erros} eventos</p>
+            `;
+
+            alert(`Transmissão concluída!\n✅ Sucessos: ${sucessos}\n❌ Erros: ${erros}`);
+        }
+
+        // Consultar retornos do governo
+        function consultarRetornos() {
+            // Simular consulta de retornos
+            alert('Consultando retornos do governo...\n\n✅ Todos os eventos processados estão com status "Aceito".');
+        }
+
+        // ============ SISTEMA DE VALIDAÇÃO E-SOCIAL ============
+
+        // Validar dados do funcionário para e-Social
+        function validarDadosFuncionario(funcionario) {
+            const erros = [];
+
+            // Validações obrigatórias
+            if (!funcionario.cpf || !validarCPF(funcionario.cpf)) {
+                erros.push('CPF inválido ou não informado');
+            }
+
+            if (!funcionario.pis || funcionario.pis.length !== 11) {
+                erros.push('PIS deve ter 11 dígitos');
+            }
+
+            if (!funcionario.nome || funcionario.nome.length < 2) {
+                erros.push('Nome deve ter pelo menos 2 caracteres');
+            }
+
+            if (!funcionario.dataNascimento) {
+                erros.push('Data de nascimento é obrigatória');
+            }
+
+            if (!funcionario.dataAdmissao) {
+                erros.push('Data de admissão é obrigatória');
+            }
+
+            if (!funcionario.categoriaESocial) {
+                erros.push('Categoria e-Social é obrigatória');
+            }
+
+            if (!funcionario.salarioBruto || funcionario.salarioBruto <= 0) {
+                erros.push('Salário deve ser maior que zero');
+            }
+
+            // Validar endereço
+            if (!funcionario.endereco) {
+                erros.push('Endereço é obrigatório');
+            } else {
+                if (!funcionario.endereco.cep || !validarCEP(funcionario.endereco.cep)) {
+                    erros.push('CEP inválido');
+                }
+                if (!funcionario.endereco.logradouro) {
+                    erros.push('Logradouro é obrigatório');
+                }
+                if (!funcionario.endereco.cidade) {
+                    erros.push('Cidade é obrigatória');
+                }
+                if (!funcionario.endereco.uf || funcionario.endereco.uf.length !== 2) {
+                    erros.push('UF deve ter 2 caracteres');
+                }
+            }
+
+            return erros;
+        }
+
+        // Validar CPF
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]/g, '');
+            if (cpf.length !== 11) return false;
+            
+            // Verificar se todos os dígitos são iguais
+            if (/^(\d)\1{10}$/.test(cpf)) return false;
+            
+            // Validar dígitos verificadores
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            
+            let resto = 11 - (soma % 11);
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(9))) return false;
+            
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            
+            resto = 11 - (soma % 11);
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(10))) return false;
+            
+            return true;
+        }
+
+        // Validar CEP
+        function validarCEP(cep) {
+            cep = cep.replace(/[^\d]/g, '');
+            return cep.length === 8;
+        }
+
+        // Validar evento antes da transmissão
+        function validarEvento(evento) {
+            const erros = [];
+            
+            if (!evento.tipo) {
+                erros.push('Tipo de evento é obrigatório');
+            }
+            
+            if (!evento.funcionarioId) {
+                erros.push('Funcionário é obrigatório');
+            }
+            
+            if (!evento.periodo) {
+                erros.push('Período de competência é obrigatório');
+            }
+            
+            // Validações específicas por tipo de evento
+            if (evento.tipo === 'S-1200') {
+                if (!evento.dados || !evento.dados.salarioBase) {
+                    erros.push('Dados de remuneração são obrigatórios para S-1200');
+                }
+            }
+            
+            return erros;
+        }
+
+        // Validar todos os funcionários
+        function validarTodosFuncionarios() {
+            const resultados = [];
+            
+            dadosCache.funcionarios.forEach(funcionario => {
+                const erros = validarDadosFuncionario(funcionario);
+                if (erros.length > 0) {
+                    resultados.push({
+                        funcionario: funcionario.nome,
+                        erros: erros
+                    });
+                }
+            });
+            
+            if (resultados.length === 0) {
+                alert('✅ Todos os funcionários estão com dados válidos para e-Social!');
+            } else {
+                let relatorio = '❌ Funcionários com dados inválidos:\n\n';
+                resultados.forEach(result => {
+                    relatorio += `👤 ${result.funcionario}:\n`;
+                    result.erros.forEach(erro => {
+                        relatorio += `   • ${erro}\n`;
+                    });
+                    relatorio += '\n';
+                });
+                alert(relatorio);
+            }
+            
+            return resultados;
+        }
+
+        // Executar validação antes da transmissão
+        function validarAntesTransmissao() {
+            const eventosPendentes = dadosCache.eventosESocial.filter(e => e.status === 'pendente');
+            const errosValidacao = [];
+            
+            eventosPendentes.forEach(evento => {
+                const funcionario = dadosCache.funcionarios.find(f => f.id === evento.funcionarioId);
+                
+                // Validar funcionário
+                if (funcionario) {
+                    const errosFuncionario = validarDadosFuncionario(funcionario);
+                    if (errosFuncionario.length > 0) {
+                        errosValidacao.push({
+                            evento: `${evento.tipo} - ${evento.funcionarioNome}`,
+                            erros: errosFuncionario
+                        });
+                    }
+                }
+                
+                // Validar evento
+                const errosEvento = validarEvento(evento);
+                if (errosEvento.length > 0) {
+                    errosValidacao.push({
+                        evento: `${evento.tipo} - ${evento.funcionarioNome}`,
+                        erros: errosEvento
+                    });
+                }
+            });
+            
+            return errosValidacao;
+        }
+
+        // ============ INTEGRAÇÃO CONTÁBIL E-SOCIAL ============
+
+        // Gerar lançamentos contábeis a partir dos eventos e-Social
+        function gerarLancamentosContabeis(evento) {
+            if (evento.tipo === 'S-1200' && evento.dados) {
+                const dados = evento.dados;
+                const funcionario = dadosCache.funcionarios.find(f => f.id === evento.funcionarioId);
+                
+                if (!funcionario) return;
+
+                // Lançamento da folha de pagamento
+                const lancamentoSalario = {
+                    id: dadosCache.lancamentos.length + 1,
+                    descricao: `Folha de Pagamento - ${funcionario.nome} - ${evento.periodo}`,
+                    valor: dados.salarioBase,
+                    tipo: 'despesa',
+                    categoria: 'Salários',
+                    conta: '3.1.01 - Salários e Ordenados',
+                    data: new Date().toISOString().split('T')[0],
+                    origem: 'esocial',
+                    eventoId: evento.id
+                };
+
+                // Lançamento dos encargos
+                const lancamentoEncargos = {
+                    id: dadosCache.lancamentos.length + 2,
+                    descricao: `Encargos Sociais - ${funcionario.nome} - ${evento.periodo}`,
+                    valor: calcularEncargosEmpresa(dados.salarioBase),
+                    tipo: 'despesa',
+                    categoria: 'Encargos Sociais',
+                    conta: '3.1.02 - Encargos Sociais',
+                    data: new Date().toISOString().split('T')[0],
+                    origem: 'esocial',
+                    eventoId: evento.id
+                };
+
+                // Lançamento das provisões
+                const lancamentoProvisoes = {
+                    id: dadosCache.lancamentos.length + 3,
+                    descricao: `Provisões Trabalhistas - ${funcionario.nome} - ${evento.periodo}`,
+                    valor: calcularProvisoesTrabalhistasA(dados.salarioBase),
+                    tipo: 'despesa',
+                    categoria: 'Provisões',
+                    conta: '3.1.03 - Provisões Trabalhistas',
+                    data: new Date().toISOString().split('T')[0],
+                    origem: 'esocial',
+                    eventoId: evento.id
+                };
+
+                // Adicionar os lançamentos
+                dadosCache.lancamentos.push(lancamentoSalario);
+                dadosCache.lancamentos.push(lancamentoEncargos);
+                dadosCache.lancamentos.push(lancamentoProvisoes);
+
+                return [lancamentoSalario, lancamentoEncargos, lancamentoProvisoes];
+            }
+
+            return [];
+        }
+
+        // Calcular encargos da empresa
+        function calcularEncargosEmpresa(salarioBase) {
+            const inss = salarioBase * 0.20; // INSS empresa
+            const fgts = salarioBase * 0.08; // FGTS
+            const seguroAcidente = salarioBase * 0.03; // Seguro acidente trabalho
+            const salarioEducacao = salarioBase * 0.025; // Salário educação
+            const incra = salarioBase * 0.002; // INCRA
+            const sebrae = salarioBase * 0.006; // SEBRAE
+            
+            return inss + fgts + seguroAcidente + salarioEducacao + incra + sebrae;
+        }
+
+        // Calcular provisões trabalhistas
+        function calcularProvisoesTrabalhistasA(salarioBase) {
+            const ferias = salarioBase * (1/12) * 1.33; // Férias + 1/3
+            const decimoTerceiro = salarioBase * (1/12); // 13º salário
+            const fgtsFerias = (salarioBase * (1/12) * 1.33) * 0.08; // FGTS sobre férias
+            const fgtsDecimo = (salarioBase * (1/12)) * 0.08; // FGTS sobre 13º
+            
+            return ferias + decimoTerceiro + fgtsFerias + fgtsDecimo;
+        }
+
+        // Processar integração contábil de eventos processados
+        function processarIntegracaoContabil() {
+            const eventosProcessados = dadosCache.eventosESocial.filter(e => 
+                e.status === 'processado' && !e.integracaoContabil
+            );
+
+            if (eventosProcessados.length === 0) {
+                alert('Não há eventos processados para integração contábil!');
+                return;
+            }
+
+            let lancamentosGerados = 0;
+
+            eventosProcessados.forEach(evento => {
+                const lancamentos = gerarLancamentosContabeis(evento);
+                if (lancamentos.length > 0) {
+                    // Marcar evento como integrado
+                    evento.integracaoContabil = true;
+                    evento.dataIntegracao = new Date().toISOString();
+                    lancamentosGerados += lancamentos.length;
+                }
+            });
+
+            // Atualizar exibições
+            carregarLancamentos();
+            atualizarDashboard();
+
+            alert(`Integração contábil concluída!\n${lancamentosGerados} lançamentos contábeis foram gerados automaticamente.`);
+        }
+
+        // Relatório de impacto contábil dos eventos e-Social
+        function gerarRelatorioImpactoContabil(periodo) {
+            const eventosPereriodo = dadosCache.eventosESocial.filter(e => 
+                e.periodo === periodo && e.status === 'processado'
+            );
+
+            if (eventosPereriodo.length === 0) {
+                alert('Nenhum evento processado encontrado para o período!');
+                return;
+            }
+
+            let totalSalarios = 0;
+            let totalEncargos = 0;
+            let totalProvisoes = 0;
+
+            eventosPereriodo.forEach(evento => {
+                if (evento.tipo === 'S-1200' && evento.dados) {
+                    totalSalarios += evento.dados.salarioBase;
+                    totalEncargos += calcularEncargosEmpresa(evento.dados.salarioBase);
+                    totalProvisoes += calcularProvisoesTrabalhistasA(evento.dados.salarioBase);
+                }
+            });
+
+            const relatorio = `
+RELATÓRIO DE IMPACTO CONTÁBIL - e-Social
+Período: ${periodo}
+==========================================
+
+📊 RESUMO DOS CUSTOS:
+
+💰 Total de Salários: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalSalarios)}
+🏢 Total de Encargos: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalEncargos)}
+📋 Total de Provisões: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalProvisoes)}
+
+💸 CUSTO TOTAL DA FOLHA: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalSalarios + totalEncargos + totalProvisoes)}
+
+📈 Eventos processados: ${eventosPereriodo.length}
+            `;
+
+            alert(relatorio);
+            
+            return {
+                totalSalarios,
+                totalEncargos,
+                totalProvisoes,
+                custoTotal: totalSalarios + totalEncargos + totalProvisoes
+            };
+        }
+
+
+        // ============ FUNÇÕES DE CONFIGURAÇÕES ============
+
+        // Salvar configurações da empresa
+        document.getElementById('empresa-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const configEmpresa = {
+                razaoSocial: document.getElementById('empresa-razao').value,
+                nomeFantasia: document.getElementById('empresa-fantasia').value,
+                cnpj: document.getElementById('empresa-cnpj').value,
+                inscricaoEstadual: document.getElementById('empresa-ie').value,
+                endereco: {
+                    cep: document.getElementById('empresa-cep').value,
+                    logradouro: document.getElementById('empresa-logradouro').value,
+                    cidade: document.getElementById('empresa-cidade').value,
+                    uf: document.getElementById('empresa-uf').value
+                },
+                contato: {
+                    telefone: document.getElementById('empresa-telefone').value,
+                    email: document.getElementById('empresa-email').value
+                }
+            };
+            
+            localStorage.setItem('configEmpresa', JSON.stringify(configEmpresa));
+            alert('✅ Configurações da empresa salvas com sucesso!');
+        });
+
+        // Salvar configurações do sistema
+        function salvarConfigSistema() {
+            const configSistema = {
+                tema: document.getElementById('tema-sistema').value,
+                idioma: document.getElementById('idioma-sistema').value,
+                dashboard: {
+                    autoRefresh: document.getElementById('dashboard-auto-refresh').checked,
+                    intervalo: document.getElementById('dashboard-intervalo').value
+                },
+                notificacoes: {
+                    lancamentos: document.getElementById('notif-lancamentos').checked,
+                    esocial: document.getElementById('notif-esocial').checked,
+                    backup: document.getElementById('notif-backup').checked
+                },
+                cache: {
+                    ativo: document.getElementById('cache-local').checked,
+                    limite: document.getElementById('cache-limite').value
+                }
+            };
+            
+            localStorage.setItem('configSistema', JSON.stringify(configSistema));
+            aplicarConfiguracoesSistema(configSistema);
+            alert('✅ Configurações do sistema salvas com sucesso!');
+        }
+
+        // Aplicar configurações do sistema
+        function aplicarConfiguracoesSistema(config) {
+            // Aplicar tema (para futura implementação)
+            if (config.tema === 'escuro') {
+                console.log('Tema escuro seria aplicado aqui');
+            }
+            
+            // Aplicar idioma (para futura implementação)
+            if (config.idioma !== 'pt-BR') {
+                console.log(`Idioma ${config.idioma} seria aplicado aqui`);
+            }
+        }
+
+        // Limpar cache
+        function limparCache() {
+            if (confirm('Tem certeza que deseja limpar o cache? Esta ação não pode ser desfeita.')) {
+                // Limpar localStorage (exceto dados importantes)
+                const dadosImportantes = {
+                    sistemaContabilidade: localStorage.getItem('sistemaContabilidade'),
+                    configEmpresa: localStorage.getItem('configEmpresa'),
+                    configSistema: localStorage.getItem('configSistema')
+                };
+                
+                localStorage.clear();
+                
+                // Restaurar dados importantes
+                Object.keys(dadosImportantes).forEach(key => {
+                    if (dadosImportantes[key]) {
+                        localStorage.setItem(key, dadosImportantes[key]);
+                    }
+                });
+                
+                alert('🧹 Cache limpo com sucesso!');
+            }
+        }
+
+        // Funções de usuários
+        function abrirModalNovoUsuario() {
+            alert('🚧 Funcionalidade em desenvolvimento!\nEm breve será possível adicionar novos usuários.');
+        }
+
+        function editarUsuario(id) {
+            alert(`🚧 Edição do usuário ID ${id} em desenvolvimento!`);
+        }
+
+        function bloquearUsuario(id) {
+            if (confirm('Tem certeza que deseja bloquear este usuário?')) {
+                alert(`🔒 Usuário ID ${id} bloqueado com sucesso!`);
+            }
+        }
+
+        function desbloquearUsuario(id) {
+            if (confirm('Tem certeza que deseja desbloquear este usuário?')) {
+                alert(`🔓 Usuário ID ${id} desbloqueado com sucesso!`);
+            }
+        }
+
+        function exportarUsuarios() {
+            const usuarios = [
+                {id: 1, nome: 'Administrador', email: 'admin@empresaexemplo.com.br', perfil: 'admin'},
+                {id: 2, nome: 'João Silva', email: 'joao@empresaexemplo.com.br', perfil: 'usuario'},
+                {id: 3, nome: 'Maria Santos', email: 'maria@empresaexemplo.com.br', perfil: 'contador'}
+            ];
+            
+            const dataStr = JSON.stringify(usuarios, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'usuarios_' + new Date().toISOString().slice(0, 10) + '.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Funções de backup
+        function executarBackup() {
+            const dadosBackup = {
+                timestamp: new Date().toISOString(),
+                dados: {
+                    lancamentos: dadosCache.lancamentos,
+                    funcionarios: dadosCache.funcionarios,
+                    eventosESocial: dadosCache.eventosESocial,
+                    remuneracaoESocial: dadosCache.remuneracaoESocial,
+                    configEmpresa: JSON.parse(localStorage.getItem('configEmpresa') || '{}'),
+                    configSistema: JSON.parse(localStorage.getItem('configSistema') || '{}')
+                }
+            };
+            
+            const dataStr = JSON.stringify(dadosBackup, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'backup_sistema_' + new Date().toISOString().slice(0, 10) + '.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            alert('💾 Backup realizado com sucesso!');
+        }
+
+        function exportarDados() {
+            const dados = {
+                lancamentos: dadosCache.lancamentos,
+                funcionarios: dadosCache.funcionarios,
+                contas: dadosCache.contas,
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(dados, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'dados_exportados_' + new Date().toISOString().slice(0, 10) + '.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importarDados() {
+            document.getElementById('arquivo-importacao').click();
+        }
+
+        document.getElementById('arquivo-importacao').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const dados = JSON.parse(e.target.result);
+                    
+                    if (confirm('Tem certeza que deseja importar estes dados? Isto substituirá os dados atuais.')) {
+                        if (dados.lancamentos) dadosCache.lancamentos = dados.lancamentos;
+                        if (dados.funcionarios) dadosCache.funcionarios = dados.funcionarios;
+                        if (dados.contas) dadosCache.contas = dados.contas;
+                        
+                        salvarDadosLocalStorage();
+                        
+                        // Recarregar as telas
+                        atualizarDashboard();
+                        carregarLancamentos();
+                        carregarContas();
+                        
+                        alert('📥 Dados importados com sucesso!');
+                    }
+                } catch (error) {
+                    alert('❌ Erro ao importar dados: arquivo inválido!');
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function limparLogs() {
+            if (confirm('Tem certeza que deseja limpar todos os logs? Esta ação não pode ser desfeita.')) {
+                // Aqui limparia os logs do sistema
+                alert('🗑️ Logs limpos com sucesso!');
+            }
+        }
+
+        // Carregar configurações salvas
+        function carregarConfiguracoes() {
+            // Carregar configurações da empresa
+            const configEmpresa = localStorage.getItem('configEmpresa');
+            if (configEmpresa) {
+                const config = JSON.parse(configEmpresa);
+                if (document.getElementById('empresa-razao')) {
+                    document.getElementById('empresa-razao').value = config.razaoSocial || '';
+                    document.getElementById('empresa-fantasia').value = config.nomeFantasia || '';
+                    document.getElementById('empresa-cnpj').value = config.cnpj || '';
+                    document.getElementById('empresa-ie').value = config.inscricaoEstadual || '';
+                    
+                    if (config.endereco) {
+                        document.getElementById('empresa-cep').value = config.endereco.cep || '';
+                        document.getElementById('empresa-logradouro').value = config.endereco.logradouro || '';
+                        document.getElementById('empresa-cidade').value = config.endereco.cidade || '';
+                        document.getElementById('empresa-uf').value = config.endereco.uf || '';
+                    }
+                    
+                    if (config.contato) {
+                        document.getElementById('empresa-telefone').value = config.contato.telefone || '';
+                        document.getElementById('empresa-email').value = config.contato.email || '';
+                    }
+                }
+            }
+            
+            // Carregar configurações do sistema
+            const configSistema = localStorage.getItem('configSistema');
+            if (configSistema) {
+                const config = JSON.parse(configSistema);
+                if (document.getElementById('tema-sistema')) {
+                    document.getElementById('tema-sistema').value = config.tema || 'claro';
+                    document.getElementById('idioma-sistema').value = config.idioma || 'pt-BR';
+                    
+                    if (config.dashboard) {
+                        document.getElementById('dashboard-auto-refresh').checked = config.dashboard.autoRefresh !== false;
+                        document.getElementById('dashboard-intervalo').value = config.dashboard.intervalo || 30;
+                    }
+                    
+                    if (config.notificacoes) {
+                        document.getElementById('notif-lancamentos').checked = config.notificacoes.lancamentos !== false;
+                        document.getElementById('notif-esocial').checked = config.notificacoes.esocial !== false;
+                        document.getElementById('notif-backup').checked = config.notificacoes.backup || false;
+                    }
+                    
+                    if (config.cache) {
+                        document.getElementById('cache-local').checked = config.cache.ativo !== false;
+                        document.getElementById('cache-limite').value = config.cache.limite || 50;
+                    }
+                }
+            }
+        }
+
+        // ============ FUNÇÕES DE CONFIGURAÇÃO DO PLANO DE CONTAS ============
+
+        // Carregar configuração das contas
+        function carregarConfigContas() {
+            const tbody = document.getElementById('config-contas-tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            if (!dadosCache.contas || !Array.isArray(dadosCache.contas)) {
+                tbody.innerHTML = '<tr><td colspan="7">Nenhuma conta encontrada</td></tr>';
+                return;
+            }
+
+            // Calcular saldos atuais
+            const saldos = calcularSaldosContas();
+            
+            dadosCache.contas.forEach(conta => {
+                const row = document.createElement('tr');
+                const saldo = saldos[conta.codigo] || 0;
+                
+                row.innerHTML = `
+                    <td><strong>${conta.codigo}</strong></td>
+                    <td>${conta.nome}</td>
+                    <td><span class="status ${conta.tipo.toLowerCase()}">${conta.tipo}</span></td>
+                    <td>${conta.natureza || 'Devedora'}</td>
+                    <td><span class="status ${conta.status === 'ativo' ? 'ativo' : 'bloqueado'}">${conta.status === 'ativo' ? '✅ Ativo' : '🔒 Inativo'}</span></td>
+                    <td>${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(saldo)}</td>
+                    <td>
+                        <button class="btn-action" onclick="editarConta('${conta.codigo}')" title="Editar">✏️</button>
+                        <button class="btn-action" onclick="toggleStatusConta('${conta.codigo}')" title="${conta.status === 'ativo' ? 'Desativar' : 'Ativar'}">${conta.status === 'ativo' ? '🔒' : '✅'}</button>
+                        <button class="btn-action" onclick="excluirConta('${conta.codigo}')" title="Excluir" style="color: #e74c3c;">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            atualizarEstatisticasContas();
+        }
+
+        // Calcular saldos das contas baseado nos lançamentos
+        function calcularSaldosContas() {
+            const saldos = {};
+            
+            if (dadosCache.lancamentos && Array.isArray(dadosCache.lancamentos)) {
+                dadosCache.lancamentos.forEach(lancamento => {
+                    const conta = lancamento.conta || lancamento.categoria;
+                    if (conta) {
+                        if (!saldos[conta]) saldos[conta] = 0;
+                        
+                        if (lancamento.tipo === 'receita') {
+                            saldos[conta] += lancamento.valor;
+                        } else if (lancamento.tipo === 'despesa') {
+                            saldos[conta] -= lancamento.valor;
+                        }
+                    }
+                });
+            }
+            
+            return saldos;
+        }
+
+        // Atualizar estatísticas das contas
+        function atualizarEstatisticasContas() {
+            if (!dadosCache.contas) return;
+            
+            const total = dadosCache.contas.length;
+            const ativas = dadosCache.contas.filter(c => c.status === 'ativo').length;
+            const inativas = total - ativas;
+            
+            const elementoTotal = document.getElementById('total-contas');
+            const elementoAtivas = document.getElementById('contas-ativas');
+            const elementoInativas = document.getElementById('contas-inativas');
+            
+            if (elementoTotal) elementoTotal.textContent = total;
+            if (elementoAtivas) elementoAtivas.textContent = ativas;
+            if (elementoInativas) elementoInativas.textContent = inativas;
+        }
+
+        // Abrir modal para nova conta
+        function abrirModalNovaConta() {
+            document.getElementById('modal-nova-conta').style.display = 'flex';
+            document.getElementById('form-nova-conta').reset();
+            document.getElementById('nova-conta-ativa').checked = true;
+        }
+
+        // Fechar modal
+        function fecharModalNovaConta() {
+            document.getElementById('modal-nova-conta').style.display = 'none';
+        }
+
+        // Salvar nova conta
+        function salvarNovaConta(event) {
+            event.preventDefault();
+            
+            const novaConta = {
+                codigo: document.getElementById('nova-conta-codigo').value.trim(),
+                nome: document.getElementById('nova-conta-nome').value.trim(),
+                tipo: document.getElementById('nova-conta-tipo').value,
+                natureza: document.getElementById('nova-conta-natureza').value,
+                descricao: document.getElementById('nova-conta-descricao').value.trim(),
+                status: document.getElementById('nova-conta-ativa').checked ? 'ativo' : 'inativo'
+            };
+
+            // Validar se conta já existe
+            const jaExiste = dadosCache.contas.some(c => c.codigo === novaConta.codigo);
+            if (jaExiste) {
+                alert('❌ Já existe uma conta com este código!');
+                return;
+            }
+
+            // Adicionar nova conta
+            dadosCache.contas.push(novaConta);
+            
+            // Salvar no localStorage
+            salvarDadosLocalStorage();
+            
+            // Recarregar a lista
+            carregarConfigContas();
+            carregarContas(); // Atualizar lista principal também
+            
+            // Fechar modal
+            fecharModalNovaConta();
+            
+            alert('✅ Nova conta adicionada com sucesso!');
+        }
+
+        // Editar conta existente
+        function editarConta(codigo) {
+            const conta = dadosCache.contas.find(c => c.codigo === codigo);
+            if (!conta) return;
+
+            // Preencher modal com dados existentes
+            document.getElementById('nova-conta-codigo').value = conta.codigo;
+            document.getElementById('nova-conta-nome').value = conta.nome;
+            document.getElementById('nova-conta-tipo').value = conta.tipo;
+            document.getElementById('nova-conta-natureza').value = conta.natureza || 'Devedora';
+            document.getElementById('nova-conta-descricao').value = conta.descricao || '';
+            document.getElementById('nova-conta-ativa').checked = conta.status === 'ativo';
+
+            // Alterar título e botão
+            document.querySelector('#modal-nova-conta h3').textContent = '✏️ Editar Conta Contábil';
+            
+            // Modificar o evento do form temporariamente
+            const form = document.getElementById('form-nova-conta');
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                atualizarConta(codigo);
+            };
+            
+            document.getElementById('modal-nova-conta').style.display = 'flex';
+        }
+
+        // Atualizar conta existente
+        function atualizarConta(codigoOriginal) {
+            const conta = dadosCache.contas.find(c => c.codigo === codigoOriginal);
+            if (!conta) return;
+
+            const novosDados = {
+                codigo: document.getElementById('nova-conta-codigo').value.trim(),
+                nome: document.getElementById('nova-conta-nome').value.trim(),
+                tipo: document.getElementById('nova-conta-tipo').value,
+                natureza: document.getElementById('nova-conta-natureza').value,
+                descricao: document.getElementById('nova-conta-descricao').value.trim(),
+                status: document.getElementById('nova-conta-ativa').checked ? 'ativo' : 'inativo'
+            };
+
+            // Verificar se código foi alterado e não conflita
+            if (novosDados.codigo !== codigoOriginal) {
+                const jaExiste = dadosCache.contas.some(c => c.codigo === novosDados.codigo);
+                if (jaExiste) {
+                    alert('❌ Já existe uma conta com este código!');
+                    return;
+                }
+            }
+
+            // Atualizar dados da conta
+            Object.assign(conta, novosDados);
+            
+            // Salvar no localStorage
+            salvarDadosLocalStorage();
+            
+            // Recarregar listas
+            carregarConfigContas();
+            carregarContas();
+            
+            // Fechar modal e restaurar estado original
+            fecharModalNovaConta();
+            document.querySelector('#modal-nova-conta h3').textContent = '➕ Nova Conta Contábil';
+            document.getElementById('form-nova-conta').onsubmit = salvarNovaConta;
+            
+            alert('✅ Conta atualizada com sucesso!');
+        }
+
+        // Alternar status da conta
+        function toggleStatusConta(codigo) {
+            const conta = dadosCache.contas.find(c => c.codigo === codigo);
+            if (!conta) return;
+
+            const novoStatus = conta.status === 'ativo' ? 'inativo' : 'ativo';
+            const acao = novoStatus === 'ativo' ? 'ativar' : 'desativar';
+            
+            if (confirm(`Tem certeza que deseja ${acao} a conta "${conta.nome}"?`)) {
+                conta.status = novoStatus;
+                salvarDadosLocalStorage();
+                carregarConfigContas();
+                carregarContas();
+                
+                alert(`✅ Conta ${acao === 'ativar' ? 'ativada' : 'desativada'} com sucesso!`);
+            }
+        }
+
+        // Excluir conta
+        function excluirConta(codigo) {
+            const conta = dadosCache.contas.find(c => c.codigo === codigo);
+            if (!conta) return;
+
+            // Verificar se conta está sendo usada
+            const emUso = dadosCache.lancamentos.some(l => 
+                l.conta === codigo || l.categoria === conta.nome
+            );
+
+            if (emUso) {
+                alert('❌ Esta conta não pode ser excluída pois possui lançamentos associados!');
+                return;
+            }
+
+            if (confirm(`Tem certeza que deseja excluir a conta "${conta.nome}"?\n\nEsta ação não pode ser desfeita.`)) {
+                dadosCache.contas = dadosCache.contas.filter(c => c.codigo !== codigo);
+                salvarDadosLocalStorage();
+                carregarConfigContas();
+                carregarContas();
+                
+                alert('🗑️ Conta excluída com sucesso!');
+            }
+        }
+
+        // Filtrar contas
+        function filtrarContas() {
+            const filtroTipo = document.getElementById('filtro-tipo-conta').value.toLowerCase();
+            const busca = document.getElementById('buscar-conta').value.toLowerCase();
+            
+            const rows = document.querySelectorAll('#config-contas-tbody tr');
+            
+            rows.forEach(row => {
+                const codigo = row.cells[0].textContent.toLowerCase();
+                const nome = row.cells[1].textContent.toLowerCase();
+                const tipo = row.cells[2].textContent.toLowerCase();
+                
+                const matchTipo = !filtroTipo || tipo.includes(filtroTipo);
+                const matchBusca = !busca || codigo.includes(busca) || nome.includes(busca);
+                
+                row.style.display = matchTipo && matchBusca ? '' : 'none';
+            });
+        }
+
+        // Exportar plano de contas
+        function exportarPlanoContas() {
+            const plano = {
+                timestamp: new Date().toISOString(),
+                contas: dadosCache.contas
+            };
+            
+            const dataStr = JSON.stringify(plano, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'plano_contas_' + new Date().toISOString().slice(0, 10) + '.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            alert('📤 Plano de contas exportado com sucesso!');
+        }
+
+        // Importar plano de contas
+        function importarPlanoContas() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const dados = JSON.parse(e.target.result);
+                        
+                        if (dados.contas && Array.isArray(dados.contas)) {
+                            if (confirm('Tem certeza que deseja importar este plano de contas?\n\nIsto substituirá o plano atual!')) {
+                                dadosCache.contas = dados.contas;
+                                salvarDadosLocalStorage();
+                                carregarConfigContas();
+                                carregarContas();
+                                
+                                alert('📥 Plano de contas importado com sucesso!');
+                            }
+                        } else {
+                            alert('❌ Arquivo inválido! Formato esperado não encontrado.');
+                        }
+                    } catch (error) {
+                        alert('❌ Erro ao importar: arquivo inválido!');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Restaurar plano de contas padrão
+        function restaurarPlanoDefault() {
+            if (confirm('Tem certeza que deseja restaurar o plano de contas padrão?\n\nIsto substituirá todas as contas atuais!')) {
+                // Restaurar plano básico
+                dadosCache.contas = [
+                    { codigo: '1.1.01', nome: 'Caixa', tipo: 'Ativo', natureza: 'Devedora', status: 'ativo' },
+                    { codigo: '1.1.02', nome: 'Bancos', tipo: 'Ativo', natureza: 'Devedora', status: 'ativo' },
+                    { codigo: '1.2.01', nome: 'Clientes', tipo: 'Ativo', natureza: 'Devedora', status: 'ativo' },
+                    { codigo: '2.1.01', nome: 'Fornecedores', tipo: 'Passivo', natureza: 'Credora', status: 'ativo' },
+                    { codigo: '2.1.02', nome: 'Contas a Pagar', tipo: 'Passivo', natureza: 'Credora', status: 'ativo' },
+                    { codigo: '3.1.01', nome: 'Capital Social', tipo: 'Patrimônio', natureza: 'Credora', status: 'ativo' },
+                    { codigo: '4.1.01', nome: 'Receita de Vendas', tipo: 'Receita', natureza: 'Credora', status: 'ativo' },
+                    { codigo: '5.1.01', nome: 'Custo das Vendas', tipo: 'Despesa', natureza: 'Devedora', status: 'ativo' },
+                    { codigo: '5.2.01', nome: 'Despesas Administrativas', tipo: 'Despesa', natureza: 'Devedora', status: 'ativo' },
+                    { codigo: '5.2.02', nome: 'Despesas Comerciais', tipo: 'Despesa', natureza: 'Devedora', status: 'ativo' }
+                ];
+                
+                salvarDadosLocalStorage();
+                carregarConfigContas();
+                carregarContas();
+                
+                alert('🔄 Plano de contas padrão restaurado com sucesso!');
+            }
+        }
+
         // ============ FUNÇÕES ESPECIAIS DE NAVEGAÇÃO ============
 
 
@@ -3569,6 +6284,7 @@
         carregarLancamentos();
         carregarContas();
         atualizarDashboard();
+        carregarConfiguracoes();
         
         // Salvar dados iniciais se não existir no localStorage
         if (!localStorage.getItem('sistemaContabilidade')) {
