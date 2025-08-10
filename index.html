@@ -587,6 +587,297 @@
             z-index: 10000;
         }
 
+        /* Estilos do botão de login */
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(45deg, #218838, #17a2b8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilos do modal de login */
+        .login-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .login-modal-content {
+            position: relative;
+            background: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .login-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .login-close {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-close:hover {
+            opacity: 1;
+        }
+
+        #loginForm {
+            padding: 25px;
+        }
+
+        .login-form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .login-form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .login-form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-demo-info {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .login-demo-info h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .login-demo-info p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .login-submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .login-submit-btn:hover {
+            background: linear-gradient(45deg, #5a6fd8, #6a42a0);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .login-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .login-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Tela de login inicial em tela cheia */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10002;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .login-screen-content {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            animation: loginScreenSlideIn 0.6s ease-out;
+        }
+
+        @keyframes loginScreenSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .login-screen-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+
+        .login-screen-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .login-screen-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .login-screen-form {
+            padding: 40px 30px;
+        }
+
+        .login-screen-form .login-form-group {
+            margin-bottom: 25px;
+        }
+
+        .login-screen-form .login-form-group input {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e8ecef;
+            border-radius: 10px;
+        }
+
+        .login-screen-form .login-submit-btn {
+            padding: 16px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .sistema-oculto {
+            display: none !important;
+        }
+
+        /* Responsividade para tela de login */
+        @media (max-width: 768px) {
+            .login-screen-content {
+                margin: 0 auto;
+                max-width: 95%;
+            }
+
+            .login-screen-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .login-screen-header p {
+                font-size: 1rem;
+            }
+
+            .login-screen-form {
+                padding: 30px 20px;
+            }
+
+            .login-demo-info {
+                margin: 15px 0;
+                padding: 12px;
+            }
+        }
+
         .mobile-menu-overlay {
             display: none;
             position: fixed;
@@ -732,13 +1023,45 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Tela de login inicial -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-screen-content">
+            <div class="login-screen-header">
+                <h1>🔐 Sistema de Contabilidade</h1>
+                <p>Faça login para acessar o sistema</p>
+            </div>
+            <form id="loginScreenForm" class="login-screen-form" onsubmit="realizarLoginInicial(event)">
+                <div class="login-form-group">
+                    <label for="screenUsername">👤 Usuário:</label>
+                    <input type="text" id="screenUsername" required placeholder="Digite seu usuário" autofocus>
+                </div>
+                <div class="login-form-group">
+                    <label for="screenPassword">🔒 Senha:</label>
+                    <input type="password" id="screenPassword" required placeholder="Digite sua senha">
+                </div>
+                <div class="login-demo-info">
+                    <h4>📋 Dados de Demonstração:</h4>
+                    <p><strong>Usuário:</strong> admin | <strong>Senha:</strong> demo123</p>
+                    <p><strong>Usuário:</strong> contador | <strong>Senha:</strong> contabil2024</p>
+                </div>
+                <button type="submit" class="login-submit-btn">🚀 Entrar no Sistema</button>
+                <div id="loginScreenMessage" class="login-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="sistemaContainer" class="container sistema-oculto">
         <header class="header">
             <div class="header-top">
                 <h1>📊 Sistema de Contabilidade</h1>
-                <button class="hamburger-menu" onclick="toggleMobileMenu()" onmousedown="console.log('Hamburger clicked')">
-                    ☰
-                </button>
+                <div class="header-actions">
+                    <button class="login-btn" onclick="toggleLoginModal()">
+                        👤 Login
+                    </button>
+                    <button class="hamburger-menu" onclick="toggleMobileMenu()" onmousedown="console.log('Hamburger clicked')">
+                        ☰
+                    </button>
+                </div>
             </div>
             <div class="header-nav">
                 <nav class="nav">
@@ -2231,7 +2554,7 @@
                 timestamp: new Date().toISOString(),
                 acao: acao,
                 detalhes: detalhes,
-                usuario: 'Sistema' // Em uma implementação real, seria o usuário logado
+                usuario: usuarioLogado ? usuarioLogado.nome : 'Sistema'
             };
             
             dadosCache.logs.push(log);
@@ -3364,6 +3687,12 @@
 
         // Função para alternar entre seções
         function showSection(sectionName) {
+            // Verificar se o usuário está logado
+            if (!usuarioLogado) {
+                mostrarNotificacao('⚠️ Você precisa fazer login para acessar esta seção!', 'warning');
+                return;
+            }
+
             // Remover classe active de todas as seções e botões
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
@@ -6280,16 +6609,396 @@ Período: ${periodo}
             document.getElementById('rem-periodo').value = mesAtual;
         }
 
-        // Carregar dados iniciais
-        carregarLancamentos();
-        carregarContas();
-        atualizarDashboard();
-        carregarConfiguracoes();
+        // Sistema inicializado apenas após login - dados são carregados na função inicializarSistema()
+
+        // ============ SISTEMA DE LOGIN ============
         
-        // Salvar dados iniciais se não existir no localStorage
-        if (!localStorage.getItem('sistemaContabilidade')) {
-            salvarDadosLocalStorage();
+        // Usuários de demonstração
+        const usuariosDemo = {
+            'admin': {
+                senha: 'demo123',
+                nome: 'Administrador do Sistema',
+                perfil: 'admin',
+                permissoes: ['dashboard', 'lancamentos', 'relatorios', 'configuracoes', 'usuarios']
+            },
+            'contador': {
+                senha: 'contabil2024',
+                nome: 'Contador Responsável',
+                perfil: 'contador',
+                permissoes: ['dashboard', 'lancamentos', 'relatorios', 'fiscal', 'esocial']
+            }
+        };
+
+        // Variável global para armazenar usuário logado
+        let usuarioLogado = null;
+
+        // Função para abrir/fechar modal de login
+        function toggleLoginModal() {
+            const modal = document.getElementById('loginModal');
+            const isVisible = modal.style.display === 'block';
+            
+            if (isVisible) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                document.getElementById('username').focus();
+            }
         }
+
+        // Função para realizar login
+        function realizarLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('loginMessage');
+            
+            // Limpar mensagens anteriores
+            messageDiv.style.display = 'none';
+            messageDiv.className = 'login-message';
+            
+            // Validar campos
+            if (!username || !password) {
+                mostrarMensagemLogin('Por favor, preencha todos os campos!', 'error');
+                return;
+            }
+            
+            // Verificar credenciais
+            const usuario = usuariosDemo[username.toLowerCase()];
+            
+            if (!usuario || usuario.senha !== password) {
+                mostrarMensagemLogin('Usuário ou senha incorretos!', 'error');
+                return;
+            }
+            
+            // Login bem-sucedido
+            usuarioLogado = {
+                username: username.toLowerCase(),
+                nome: usuario.nome,
+                perfil: usuario.perfil,
+                permissoes: usuario.permissoes,
+                dataLogin: new Date().toISOString()
+            };
+            
+            // Salvar no localStorage
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+            
+            mostrarMensagemLogin(`Bem-vindo, ${usuario.nome}!`, 'success');
+            
+            // Fechar modal após 1.5 segundos
+            setTimeout(() => {
+                toggleLoginModal();
+                atualizarInterfaceLogin();
+                
+                // Registrar log de login
+                registrarLog('LOGIN_SUCESSO', `Login realizado: ${usuario.nome} (${usuario.perfil})`);
+                
+                // Mostrar notificação de sucesso
+                mostrarNotificacao(`🎉 Login realizado com sucesso! Bem-vindo, ${usuario.nome}`, 'success');
+                
+                // Limpar formulário
+                document.getElementById('loginForm').reset();
+            }, 1500);
+        }
+
+        // Função para mostrar mensagens no modal de login
+        function mostrarMensagemLogin(mensagem, tipo) {
+            const messageDiv = document.getElementById('loginMessage');
+            messageDiv.textContent = mensagem;
+            messageDiv.className = `login-message ${tipo}`;
+            messageDiv.style.display = 'block';
+        }
+
+        // Função para atualizar interface baseada no login
+        function atualizarInterfaceLogin() {
+            const loginBtn = document.querySelector('.login-btn');
+            
+            if (usuarioLogado) {
+                // Usuário logado - mostrar informações do usuário
+                loginBtn.innerHTML = `👋 Olá, ${usuarioLogado.nome.split(' ')[0]}`;
+                loginBtn.onclick = function() {
+                    mostrarPerfilUsuario();
+                };
+                
+                // Adicionar indicador de usuário logado no dashboard
+                adicionarIndicadorUsuario();
+            } else {
+                // Usuário não logado - mostrar botão de login
+                loginBtn.innerHTML = '👤 Login';
+                loginBtn.onclick = function() {
+                    toggleLoginModal();
+                };
+            }
+        }
+
+        // Função para mostrar perfil do usuário
+        function mostrarPerfilUsuario() {
+            if (!usuarioLogado) return;
+            
+            const perfil = `
+🔐 PERFIL DO USUÁRIO
+==========================================
+👤 Nome: ${usuarioLogado.nome}
+🆔 Usuário: ${usuarioLogado.username}
+🎭 Perfil: ${usuarioLogado.perfil}
+📅 Login: ${new Date(usuarioLogado.dataLogin).toLocaleString('pt-BR')}
+
+🔑 PERMISSÕES:
+${usuarioLogado.permissoes.map(p => `• ${p}`).join('\n')}
+
+Deseja fazer logout?
+            `;
+            
+            if (confirm(perfil)) {
+                realizarLogout();
+            }
+        }
+
+        // Função para realizar logout
+        function realizarLogout() {
+            if (!usuarioLogado) return;
+            
+            // Registrar log de logout
+            registrarLog('LOGOUT', `Logout realizado: ${usuarioLogado.nome}`);
+            
+            // Limpar dados do usuário
+            usuarioLogado = null;
+            localStorage.removeItem('usuarioLogado');
+            
+            // Atualizar interface
+            atualizarInterfaceLogin();
+            removerIndicadorUsuario();
+            
+            // Mostrar notificação
+            mostrarNotificacao('👋 Logout realizado com sucesso!', 'info');
+        }
+
+        // Função para adicionar indicador de usuário logado
+        function adicionarIndicadorUsuario() {
+            // Remover indicador existente se houver
+            removerIndicadorUsuario();
+            
+            const header = document.querySelector('.header-top h1');
+            const indicador = document.createElement('small');
+            indicador.id = 'usuario-logado-indicador';
+            indicador.style.cssText = `
+                display: block;
+                font-size: 0.8rem;
+                color: #666;
+                font-weight: normal;
+                margin-top: 5px;
+            `;
+            indicador.textContent = `Logado como: ${usuarioLogado.nome} (${usuarioLogado.perfil})`;
+            header.appendChild(indicador);
+        }
+
+        // Função para remover indicador de usuário
+        function removerIndicadorUsuario() {
+            const indicador = document.getElementById('usuario-logado-indicador');
+            if (indicador) {
+                indicador.remove();
+            }
+        }
+
+        // Função para mostrar notificação
+        function mostrarNotificacao(mensagem, tipo = 'info') {
+            // Criar elemento de notificação se não existir
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    color: white;
+                    font-weight: 500;
+                    z-index: 10001;
+                    transform: translateX(400px);
+                    transition: transform 0.3s ease;
+                    max-width: 350px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                `;
+                document.body.appendChild(notification);
+            }
+            
+            // Definir cores baseadas no tipo
+            const cores = {
+                success: '#28a745',
+                error: '#dc3545',
+                info: '#17a2b8',
+                warning: '#ffc107'
+            };
+            
+            notification.style.backgroundColor = cores[tipo] || cores.info;
+            notification.textContent = mensagem;
+            
+            // Mostrar notificação
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Ocultar após 4 segundos
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+            }, 4000);
+        }
+
+        // Função para login inicial (tela cheia)
+        function realizarLoginInicial(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('screenUsername').value.trim();
+            const password = document.getElementById('screenPassword').value;
+            const messageDiv = document.getElementById('loginScreenMessage');
+            
+            // Limpar mensagens anteriores
+            messageDiv.style.display = 'none';
+            messageDiv.className = 'login-message';
+            
+            // Validar campos
+            if (!username || !password) {
+                mostrarMensagemLoginScreen('Por favor, preencha todos os campos!', 'error');
+                return;
+            }
+            
+            // Verificar credenciais
+            const usuario = usuariosDemo[username.toLowerCase()];
+            
+            if (!usuario || usuario.senha !== password) {
+                mostrarMensagemLoginScreen('Usuário ou senha incorretos!', 'error');
+                return;
+            }
+            
+            // Login bem-sucedido
+            usuarioLogado = {
+                username: username.toLowerCase(),
+                nome: usuario.nome,
+                perfil: usuario.perfil,
+                permissoes: usuario.permissoes,
+                dataLogin: new Date().toISOString()
+            };
+            
+            // Salvar no localStorage
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+            
+            mostrarMensagemLoginScreen(`Bem-vindo, ${usuario.nome}!`, 'success');
+            
+            // Redirecionar para o sistema após 1.5 segundos
+            setTimeout(() => {
+                redirecionarParaSistema();
+                
+                // Registrar log de login
+                registrarLog('LOGIN_SUCESSO', `Login realizado: ${usuario.nome} (${usuario.perfil})`);
+                
+                // Mostrar notificação de sucesso
+                mostrarNotificacao(`🎉 Login realizado com sucesso! Bem-vindo, ${usuario.nome}`, 'success');
+                
+                // Limpar formulário
+                document.getElementById('loginScreenForm').reset();
+            }, 1500);
+        }
+
+        // Função para mostrar mensagens na tela de login inicial
+        function mostrarMensagemLoginScreen(mensagem, tipo) {
+            const messageDiv = document.getElementById('loginScreenMessage');
+            messageDiv.textContent = mensagem;
+            messageDiv.className = `login-message ${tipo}`;
+            messageDiv.style.display = 'block';
+        }
+
+        // Função para redirecionar para o sistema
+        function redirecionarParaSistema() {
+            // Ocultar tela de login
+            document.getElementById('loginScreen').style.display = 'none';
+            
+            // Mostrar sistema
+            document.getElementById('sistemaContainer').classList.remove('sistema-oculto');
+            
+            // Atualizar interface de login
+            atualizarInterfaceLogin();
+            
+            // Carregar dados iniciais do sistema
+            inicializarSistema();
+        }
+
+        // Função para inicializar o sistema após login
+        function inicializarSistema() {
+            // Carregar dados iniciais
+            carregarLancamentos();
+            carregarContas();
+            atualizarDashboard();
+            carregarConfiguracoes();
+            
+            // Salvar dados iniciais se não existir no localStorage
+            if (!localStorage.getItem('sistemaContabilidade')) {
+                salvarDadosLocalStorage();
+            }
+        }
+
+        // Função modificada para logout - retornar à tela de login
+        function realizarLogout() {
+            if (!usuarioLogado) return;
+            
+            // Registrar log de logout
+            registrarLog('LOGOUT', `Logout realizado: ${usuarioLogado.nome}`);
+            
+            // Limpar dados do usuário
+            usuarioLogado = null;
+            localStorage.removeItem('usuarioLogado');
+            
+            // Mostrar notificação
+            mostrarNotificacao('👋 Logout realizado com sucesso!', 'info');
+            
+            // Retornar à tela de login
+            setTimeout(() => {
+                voltarParaLogin();
+            }, 1000);
+        }
+
+        // Função para voltar à tela de login
+        function voltarParaLogin() {
+            // Ocultar sistema
+            document.getElementById('sistemaContainer').classList.add('sistema-oculto');
+            
+            // Mostrar tela de login
+            document.getElementById('loginScreen').style.display = 'flex';
+            
+            // Limpar formulário e focar no campo usuário
+            document.getElementById('loginScreenForm').reset();
+            document.getElementById('screenUsername').focus();
+            
+            // Remover indicador de usuário
+            removerIndicadorUsuario();
+        }
+
+        // Verificar se há usuário logado ao carregar a página
+        function verificarUsuarioLogado() {
+            const dadosUsuario = localStorage.getItem('usuarioLogado');
+            if (dadosUsuario) {
+                usuarioLogado = JSON.parse(dadosUsuario);
+                redirecionarParaSistema();
+            } else {
+                // Garantir que a tela de login esteja visível
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('sistemaContainer').classList.add('sistema-oculto');
+            }
+        }
+
+        // Fechar modal ao clicar fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                toggleLoginModal();
+            }
+        }
+
+        // Verificar usuário logado quando a página carregar
+        verificarUsuarioLogado();
 
         // Simular atualizações em tempo real
         setInterval(() => {
@@ -6302,5 +7011,35 @@ Período: ${periodo}
                 new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(newValue);
         }, 10000); // Atualizar a cada 10 segundos
     </script>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-modal-content">
+            <div class="login-header">
+                <h2>🔐 Login do Sistema</h2>
+                <span class="login-close" onclick="toggleLoginModal()">&times;</span>
+            </div>
+            <form id="loginForm" onsubmit="realizarLogin(event)">
+                <div class="login-form-group">
+                    <label for="username">👤 Usuário:</label>
+                    <input type="text" id="username" required placeholder="Digite seu usuário">
+                </div>
+                <div class="login-form-group">
+                    <label for="password">🔒 Senha:</label>
+                    <input type="password" id="password" required placeholder="Digite sua senha">
+                </div>
+                <div class="login-demo-info">
+                    <h4>📋 Dados de Demonstração:</h4>
+                    <p><strong>Usuário:</strong> admin</p>
+                    <p><strong>Senha:</strong> demo123</p>
+                    <p><strong>Usuário:</strong> contador</p>
+                    <p><strong>Senha:</strong> contabil2024</p>
+                </div>
+                <button type="submit" class="login-submit-btn">🚀 Entrar no Sistema</button>
+            </form>
+            <div id="loginMessage" class="login-message"></div>
+        </div>
+    </div>
+
 </body>
 </html>
