@@ -155,3 +155,7 @@ Se este projeto foi útil para você, considere dar uma ⭐ no repositório!
 
   Resultado: O sistema se tornaria uma solução completa para empresas que precisam de gestão contábil, fiscal e trabalhista integrada,
    atendendo 100% das demandas do eSocial brasileiro.
+
+   implementar 
+   conciliação bancária, Obrigações acessorias, dctf, e social, balancete ponto e frequencia, balanço patrimonial, fluxo de caixa, razão
+   analítico, relatórios customizados, usuários, backup e dados e integração estão vazios
